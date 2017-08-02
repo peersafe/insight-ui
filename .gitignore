@@ -13,7 +13,6 @@ pids
 logs
 results
 build
-.idea
 
 node_modules
 
