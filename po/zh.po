@@ -568,3 +568,11 @@ msgstr "区块哈希"
 #: public/views/block.html
 msgid "Fee Rate"
 msgstr "费率"
+
+#: public/views/blacklist.html
+msgid "Waiting for blacklist..."
+msgstr "等待黑名单..."
+
+#: public/views/blacklist.html
+msgid "No blacklist yet."
+msgstr "尚无黑名单"
