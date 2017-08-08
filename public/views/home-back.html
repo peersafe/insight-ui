@@ -1,11 +1,11 @@
-<script>
-  function aaa(){
-     alert('aaaa');
-     searchByAddr();
-  }
-</script> 
- <div data-ng-if="true" data-ng-controller="transactionsController" data-ng-init="load('address')">
+  <div data-ng-if="true" data-ng-controller="transactionsController" data-ng-init="load('address')">
   	    <div class="if">
+		    <div class="mdWrap">
+		    	    	<div class="md">
+		    	    		<input id="searchaddr" type="text" data-ng-model="searchAddr" placeholder="1KP9YtDfko2WpPy95T6uNQxVEzJYzMenek">
+		    	    		<input id="searchButton" type="button" ng-click="window.frames['ripple'].gotoThing();searchByAddr()" value="GO">
+		    	    	</div>
+		    </div> 
 	    	<iframe id="ripple" src="views/ripplecharts-frontend/src/index.html" frameborder="0"></iframe>
 	    </div>
 	  
