@@ -5,6 +5,24 @@ angular.module('insight.blacklists')
       function ($resource, Service) {
         console.log("Service:", Service.apiPrefix)
         return $resource(Service.apiPrefix + '/blacklist/blacklists');
+      },{
+      get: {
+        method: 'GET',
+        interceptor: {
+          response: function (res) {
+            return res.data;
+          },
+          responseError: function (res) {
+            if (res.status === 404) {
+              return res;
+            }
+          }
+        }
+      }
+    })
+    .factory('BlackByAddr',
+      function ($resource, Service) {
+        return $resource(Service.apiPrefix + '/blacklist/:addr');
       });
         // function () {
         //     console.log("blacklists service start");
