@@ -54,7 +54,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
         $scope.zuoShow=!$scope.zuoShow;
     }
      $scope.txs=[];
-     $scope.exceltxs=[{hash:'交易哈希',time:'交易产生时间',value:'交易金额',confirmations:'交易状态'}];
+     $scope.exceltxs=[];
      pageNum = 0;
       _byAddress();
   }
