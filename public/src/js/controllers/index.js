@@ -4,7 +4,7 @@ var TRANSACTION_DISPLAYED = 6;
 var BLOCKS_DISPLAYED = 8;
 
 angular.module('insight.system').controller('IndexController',
-  function($scope, Global, getSocket, Blocks,Status,TransactionsByBlock) {
+  function($scope, Global, getSocket, Blocks,Status,TransactionsByBlock,BlackByAddr) {
     $scope.global = Global;
     var blockHash =[];
     var number = 0;
