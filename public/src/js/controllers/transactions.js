@@ -103,7 +103,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
       isHome=false;
       //console.log($scope.stime ,$scope.etime);
       $scope.txs=[];
-      $scope.exceltxs=[{hash:'交易哈希',time:'交易产生时间',value:'交易金额',confirmations:'交易状态'}];
+      $scope.exceltxs=[];
       pageNum = 0;
       _byAddress();
   }
@@ -338,7 +338,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   
   //Init without txs
   $scope.txs = [];
-  $scope.exceltxs=[{hash:'交易哈希',time:'交易产生时间',value:'交易金额',confirmations:'交易状态'}];
+  $scope.exceltxs=[];
 
   $scope.$on('tx', function(event, txid) {
     _findTx(txid);
