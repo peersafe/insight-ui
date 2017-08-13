@@ -133,7 +133,8 @@ angular.module('insight.blacklists').controller('BlacklistsController',
     $scope.doAdd = function () {
       if (!$scope.newblacklist || !$scope.newblacklist.addr) {
         $scope.newblacklist = {addr:'please input address'}
-      } else if ($scope.newblacklist.addr.length !== 34) {
+      } else if ($scope.newblacklist.addr.length < 34
+      || $scope.newblacklist.addr.length > 35) {
         // TODO 还需要验证地址的有效性
         $scope.newblacklist.addr = 'invalid address'
       } else {
