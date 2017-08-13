@@ -42,6 +42,7 @@
 				</div>
 			</div>
 
+			<!--unused old-->
 			<form class="form-horizontal" ng-show="false">
 				<label class="col-sm-1 control-label">地址:</label>
 				<div class="col-sm-4 bla-tit">
@@ -67,11 +68,11 @@
 	    			<td class="td5">更新时间</td>
 	    			<!--<td>操作</td>-->
 	    		</tr>
-				<tr class="fader" data-ng-repeat='b in blacklists | filter:name_filter'>
+				<tr class="fader" data-ng-repeat='b in blacklists | orderBy:b.time| filter:name_filter'>
 					<td class="td1">
 						<input type="checkbox" ng-hide="bedit" ng-model="b.checked" ng-click="selectOne(b.addr)">
 					</td>
-	    			<td class="td1" ng-click="openEdit(b.addr, b.comment)">{{b.no}}</td>
+	    			<td class="td1" ng-click="openEdit(b.addr, b.comment)">{{$index + 1}}</td>
 	    			<td><a href="address/{{b.addr}}">{{b.addr}}</a></td>
 	    			<td class="bxg" ng-click="openEdit(b.addr, b.comment)">{{b.comment}}</td>
 	    			<td class="td5" ng-click="openEdit(b.addr, b.comment)">{{b.time | date:'yyyy-MM-dd HH:mm:ss'}}</td>

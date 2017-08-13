@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.transactions',['ngSanitize', 'ngCsv']).controller('transactionsController',
-function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlackByAddr) {
+function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress/*,BlackByAddr*/) {
   $scope.global = Global;
   $scope.loading = false;
   $scope.loadedBy = null;
@@ -41,11 +41,11 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
   var _blackAddr = function(){
       var addr = $scope.searchAddr;
-      BlackByAddr.get({
-          addr:addr
-      }, function(data) {
-        $scope.blackaddr = data;
-      });
+      // BlackByAddr.get({
+      //     addr:addr
+      // }, function(data) {
+      //   $scope.blackaddr = data;
+      // });
       
   }
 

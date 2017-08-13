@@ -28,13 +28,11 @@ angular.module('insight.history').controller('HistoryController',
     }
     $scope.list();
 
-    $scope.histories.forEach(function(history,index){
-      $scope["datashow"+history.import_time]=true;
-      history.idnum=index;
-    })
-    $scope.params = $routeParams;
-    $scope.expand = function(showDiv,num,id){
-        $scope["datashow"+showDiv] =!$scope["datashow"+showDiv];
-        $scope.histories[id].limitpage=num;
+    $scope.expand = function (num, id) {
+      $scope.histories[id].limitpage = num;
+      console.log('$scope.histories[id]=', $scope.histories[id])
     }
+
+    $scope.params = $routeParams;
+
   });
