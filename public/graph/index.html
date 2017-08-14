@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html ng-controller="AppCtrl">
+  <head>
+    <title ng-bind="pageTitle">XRP Charts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- D3 needs this -->
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link href="assets/icons/apple-touch-icon.png" rel="apple-touch-icon" />
+    <link href="assets/icons/android-icon.png" rel="icon" sizes=”192×192″ />
+
+    <script>
+      
+      var API = "/insight-api";
+      var GA_ACCOUNT = "";
+      var GA_ID = "";
+      var remote;
+    </script>
+
+    <!-- compiled CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/ripplecharts-2.4.2.css" />
+
+    <!-- compiled JavaScript -->
+    <script type="text/javascript" src="vendor/snapjs/snap.js"></script>
+    <script type="text/javascript" src="vendor/angular/angular.js"></script>
+    <script type="text/javascript" src="vendor/angular-touch/angular-touch.js"></script>
+    <script type="text/javascript" src="vendor/angular-snap/angular-snap.js"></script>
+    <script type="text/javascript" src="vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="vendor/angular-ui-utils/modules/route/route.js"></script>
+    <script type="text/javascript" src="vendor/underscore/underscore.js"></script>
+    <script type="text/javascript" src="vendor/moment/moment.js"></script>
+    <script type="text/javascript" src="vendor/store/dist/store2.js"></script>
+    <script type="text/javascript" src="vendor/modernizr/modernizr.js"></script>
+    <script type="text/javascript" src="vendor/d3/d3.js"></script>
+    <script type="text/javascript" src="vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="vendor/jquery-ui/jquery-ui.js"></script>
+    <script type="text/javascript" src="vendor/jscrollpane/script/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="vendor/jscrollpane/script/jquery.jscrollpane.js"></script>
+    <script type="text/javascript" src="vendor/ddslick/jquery.ddslick.min.js"></script>
+    <script type="text/javascript" src="vendor/json-formatter/dist/json-formatter.js"></script>
+    <script type="text/javascript" src="vendor/lodash/lodash.js"></script>
+    <script type="text/javascript" src="deps/jquery.selectbox.min.js"></script>
+    <script type="text/javascript" src="deps/jquery.inview.js"></script>
+    <script type="text/javascript" src="deps/onResize.js"></script>
+    <script type="text/javascript" src="deps/ripple.js"></script>
+    <script type="text/javascript" src="deps/ripple-orderbook.js"></script>
+    <script type="text/javascript" src="deps/offersExercisedListener.js"></script>
+    <script type="text/javascript" src="src/app/app.js"></script>
+    <script type="text/javascript" src="src/app/graph/graph.js"></script>
+    <script type="text/javascript" src="src/common/apiHandler.js"></script>
+    <script type="text/javascript" src="src/common/graph.js"></script>
+    <script type="text/javascript" src="src/common/nameService.js"></script>
+    <script type="text/javascript" src="src/config.js"></script>
+    <script type="text/javascript" src="templates-common.js"></script>
+    <script type="text/javascript" src="templates-app.js"></script>
+
+  </head>
+  <body ng-class="theme">
+    <div id="loading">
+      <img class="loader" src="assets/images/rippleThrobber.png"/>
+    </div>
+    <div id="maintenance">
+      <div class="logo"></div>
+      <h3 class="title"></h3>
+      <div class="subtitle"></div>
+    </div>
+    <div snap-drawer>
+      <div class="banner-pad"></div>
+      <ul class="nav">
+        <li class="top">
+        </li>
+        <li class="page">
+          <ul>
+            <li ui-route="/" ng-class="{active:$uiRoute}">
+              <a href="#/" snap-close>Dashboard</a>
+            </li>
+          </ul>
+        </li>
+        <li class="category">
+          <a href="#/markets" snap-close><img src="assets/icons/999_markets.svg">Markets</a>
+        </li>
+        <li class="page">
+          <ul>
+            <li ui-route="/markets(/.+)?" ng-class="{active:$uiRoute !== false}">
+              <a href="#/markets" snap-close>Live Chart</a>
+            </li>
+            <li ui-route="/multimarkets" ng-class="{active:$uiRoute !== false}">
+              <a href="#/multimarkets" snap-close>Multi Markets</a>
+            </li>
+            <li ui-route="/active_accounts" ng-class="{active:$uiRoute !== false}">
+              <a href="#/active_accounts" snap-close>Active Accounts</a>
+            </li>
+            <li ui-route="/trade-volume" ng-class="{active:$uiRoute !== false}">
+              <a href="#/trade-volume" snap-close>Trade Volume</a>
+            </li>
+            <li ui-route="/xrp-markets" ng-class="{active:$uiRoute !== false}">
+              <a href="#/xrp-markets" snap-close>XRP Markets</a>
+            </li>
+          </ul>
+        </li>
+        <li class="category">
+          <a href="#/value" snap-close><img src="assets/icons/999_network.svg">Network</a>
+        </li>
+        <li class="page">
+          <ul>
+            <li ui-route="/value" ng-class="{active:$uiRoute !== false}">
+              <a href="#/value" snap-close>Value Trends</a>
+            </li>
+            <li ui-route="/history" ng-class="{active:$uiRoute !== false}">
+              <a href="#/history" snap-close>Historical Volume</a>
+            </li>
+            <li ui-route="/metrics" ng-class="{active:$uiRoute !== false}">
+              <a href="#/metrics" snap-close>Metrics</a>
+            </li>
+            <li ui-route="/Topology" ng-class="{active:$uiRoute !== false}">
+              <a href="#/topology" snap-close>Topology</a>
+            </li>
+            <li ui-route="/validators" ng-class="{active:$uiRoute !== false}">
+              <a href="#/validators" snap-close>Validators</a>
+            </li>
+          </ul>
+        </li>
+        <li class="category">
+          <a href="#/graph" snap-close><img src="assets/icons/999_accounts.svg">Accounts</a>
+        </li>
+        <li class="page">
+          <ul>
+            <li ui-route="/graph(/.+)?" ng-class="{active:$uiRoute !== false}">
+              <a href="#/graph" snap-close>Account Explorer</a>
+            </li>
+          </ul>
+        </li>
+        <li class="category">
+          <a href="#/transactions" snap-close><img src="assets/images/flip.svg"/>Transactions</a>
+        </li>
+      </ul>
+    </div>
+
+    <div snap-content class="snap-content" snap-options="snapOptions">
+      <div class="banner-pad"></div>
+      <div ui-view="main"></div>
+
+    </div>
+  </body>
+  <script>
+    if (GA_ACCOUNT && GA_ID) {
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', GA_ACCOUNT, GA_ID);
+      ga('require', 'displayfeatures');
+
+    } else {
+      ga = function(){};
+    }
+
+  </script>
+</html>
+
