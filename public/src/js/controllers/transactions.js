@@ -18,13 +18,13 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
  
    //Datepicker
   var _formatTimestamp = function (date) {
-    var yyyy = date.getUTCFullYear().toString();
-    var mm = (date.getUTCMonth() + 1).toString(); // getMonth() is zero-based
-    var dd  = date.getUTCDate().toString();
+    var yyyy = date.getFullYear().toString();
+    var mm = (date.getMonth() + 1).toString(); // getMonth() is zero-based
+    var dd  = date.getDate().toString();
 
     return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]); //padding
   };
-
+  $scope.dateval= _formatTimestamp(new Date())
 /*  $scope.datevala = _formatTimestamp(new Date());
   $scope.datevalb = _formatTimestamp(new Date());*/
  /* $scope.stime = Math.round((new Date(_formatTimestamp(new Date()) +" 00:00:00")).getTime()/1000);
@@ -84,6 +84,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
   $scope.$watch('datevala', function(newValue, oldValue) {
     if (newValue !== oldValue) {
+      console.log(_formatTimestamp(newValue));
       $scope.stime = Math.round((new Date(_formatTimestamp(newValue) +" 00:00:00")).getTime()/1000);
     }
 
@@ -110,12 +111,12 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
     //Datepicker
     var _formatTime = function (date) {
-        var yyyy = date.getUTCFullYear().toString();
-        var mm = (date.getUTCMonth() + 1).toString(); // getMonth() is zero-based
-        var dd  = date.getUTCDate().toString();
-        var h  = date.getUTCHours().toString();
-        var m  = date.getUTCMinutes().toString();
-        var s  = date.getUTCSeconds().toString();
+        var yyyy = date.getFullYear().toString();
+        var mm = (date.getMonth() + 1).toString(); // getMonth() is zero-based
+        var dd  = date.getDate().toString();
+        var h  = date.getHours().toString();
+        var m  = date.getMinutes().toString();
+        var s  = date.getSeconds().toString();
 
         return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]) + " " + (h[1] ? h : '0' + h[0]) + ":" + (m[1] ? m : '0' + m[0]) + ":" + (s[1] ? s : '0' + s[0]) ; //padding
     };
@@ -198,13 +199,11 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
     pageNum += 1;
     data.txs.forEach(function(tx) {
       if(isHome){
-        console.log("--2 "+tx);
         _processTX(tx);
         $scope.txs.push(tx);
       }else{
         //console.log("_Txdirection "+_Txdirection(tx));
         if(_Txdirection(tx)){
-          console.log("--3 "+tx);
           _processTX(tx);
           $scope.txs.push(tx);
           $scope.exceltxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),value:tx.valueOut + " BTC",confirmations:tx.confirmations});
