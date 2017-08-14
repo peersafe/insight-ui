@@ -101,6 +101,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
 
  $scope.searchByDate = function(){
+      $scope.loading = true;
       isHome=false;
       //console.log($scope.stime ,$scope.etime);
       $scope.txs=[];
