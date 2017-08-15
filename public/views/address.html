@@ -94,7 +94,7 @@
                 <img class="dateimg" src="images/rili.png"  width="25" alt="">
                 <img class="dateimg" src="images/search.png" alt="" data-ng-click="searchByDate()" height="35"> -->
               </div>
-              <span class="daochu" ng-csv="exceladdtxs" add-bom="true" csv-header="['交易哈希', '交易产生时间','转入金额','转出金额', '交易状态']" filename="{{address.addrStr}}_{{formatstime}}_{{formatetime}}_交易信息表_{{dateval}}.csv">导出</span></h2>
+              <span class="daochu" ng-csv="exceladdtxs" add-bom="true" csv-header="['交易哈希', '交易产生时间','转入金额','转出金额', '交易状态']" filename="{{address.addrStr}}_交易信息表_{{formatstime}}_{{formatetime}}.csv">导出</span></h2>
       <div data-ng-include src="'views/transaction/list.html'" when-scrolled="loadMore()"></div>
     </div>
   </section>
