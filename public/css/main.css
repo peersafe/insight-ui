@@ -1071,6 +1071,7 @@ table a{color: #30bfa1;}
 	border: 1px solid #999;
 	border-radius: 4px
 }
+.historytable tr td{padding: 0 20px}
 
 /*styles for jquery ui daterangepicker plugin */
 
