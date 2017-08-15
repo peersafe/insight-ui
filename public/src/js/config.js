@@ -31,6 +31,10 @@ angular.module('insight').config(function($routeProvider) {
       templateUrl: 'views/block_list.html',
       title: 'Bitcoin Blocks solved Today'
     }).
+     when('/transcations', {
+      templateUrl: 'views/transcation_list.html',
+      title: 'Bitcoin Blocks solved Today'
+    }).
      when('/blocks-index', {
       templateUrl: 'views/index.html',
       title: 'Bitcoin Blocks solved Today'

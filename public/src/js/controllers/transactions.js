@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.transactions',['ngSanitize', 'ngCsv']).controller('transactionsController',
-function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress/*,BlackByAddr*/) {
+function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks/*,BlackByAddr*/) {
   $scope.global = Global;
   $scope.loading = false;
   $scope.loadedBy = null;
@@ -127,7 +127,6 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
     };
 
 
-
   var _aggregateItems = function(items) {
     if (!items) return [];
 
@@ -212,6 +211,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
           _processTX(tx);
           $scope.txs.push(tx);
           $scope.exceltxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),value:tx.valueOut + " BTC",confirmations:tx.confirmations});
+          console.log(tx.time);
           $scope.exceladdtxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),valueIn:tx.valueIn + " BTC",valueOut:tx.valueOut + " BTC",confirmations:tx.confirmations});
         }
       }
@@ -335,6 +335,78 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
     }
   };
 
+  $scope.htxs= [];
+  $scope.excelhtxs=[];
+  var curHeight = 0;
+  $scope.iscurheight = true;
+  $scope.initLoadTXByheight = function() {
+      Blocks.get({
+        limit: 1
+      }, function(res) {
+        $scope.blockhash = res.blocks[0].hash;
+        curHeight = res.blocks[0].height;
+        $scope.blockHeight = curHeight;
+        _getcurData();
+      });
+  };
+   //Load transactions for pagination
+  $scope.loadTXByheight = function() {
+      $scope.iscurheight = false;
+      $scope.htxs= [];
+      $scope.loading = true;
+      pageNum = 0;
+      console.log($scope.blockHeight,curHeight);
+      if($scope.blockHeight===curHeight){
+          $scope.iscurheight = true;
+      }
+      console.log($scope.iscurheight);
+      BlockByHeight.get({
+        blockHeight:$scope.blockHeight
+      },function(data){
+          $scope.blockhash = data.blockHash;
+          _getcurData();
+      })
+  };
+ 
+  var _getcurData = function(){
+     var hash = $scope.blockhash;
+     console.log(hash);
+      TransactionsByBlock.get({
+          block:hash,
+          pageNum: pageNum
+      }, function(data) {
+          _paginatetx(data);
+      });
+    }
+    
+  $scope.humanSince = function(time) {
+      var m = moment.unix(time);
+      return m.max().fromNow();
+  };
+  $scope.parseint = function(height) {
+      return parseInt(height);
+  };
+  $scope.prevHeight = function() {
+      $scope.blockHeight = $scope.blockHeight-1;
+      $scope.loadTXByheight();
+  };
+  $scope.nextHeight = function() {
+      $scope.blockHeight = $scope.blockHeight+1;
+      $scope.loadTXByheight();
+  };
+  var _paginatetx = function(data) {
+    $scope.loading = false;
+
+    pagesTotal = data.pagesTotal;
+    pageNum += 1;
+    data.txs.forEach(function(tx) {
+        $scope.htxs.push(tx);
+        $scope.excelhtxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),value:tx.valueOut + " BTC",confirmations:tx.confirmations+"个确认数"});
+    });
+    if (pageNum < pagesTotal) {
+      _getcurData();
+    }
+  };
   // Highlighted txout
   if ($routeParams.v_type == '>' || $routeParams.v_type == '<') {
     $scope.from_vin = $routeParams.v_type == '<' ? true : false;

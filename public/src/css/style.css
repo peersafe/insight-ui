@@ -200,6 +200,7 @@ table a{color: #30bfa1;}
     font-size: 18px;
     font-weight: 700;
 }
+.dateimg{cursor: pointer;}
 .md #searchButton {
 	width: 50px;
 	height: 38px;
