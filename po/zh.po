@@ -119,7 +119,7 @@ msgstr "完成"
 
 #: public/views/transaction.html public/views/transaction/tx.html
 msgid "Confirmations"
-msgstr "确认"
+msgstr "个确认"
 
 #: public/views/includes/header.html
 msgid "Conn"
@@ -181,6 +181,10 @@ msgstr "Hash序列化"
 #: public/views/status.html public/views/includes/header.html
 msgid "Height"
 msgstr "高度"
+
+#public/views/index.html
+msgid "BlockHeight"
+msgstr "区块高度"
 
 #: public/views/transaction.html public/views/transaction/tx.html
 msgid "Included in Block"
@@ -293,7 +297,7 @@ msgstr "Powered by"
 
 #: public/views/block.html
 msgid "Previous Block"
-msgstr "前一个区块"
+msgstr "上一个区块"
 
 #: public/views/status.html
 msgid "Protocol version"
@@ -326,6 +330,10 @@ msgstr "查询区块高度、区块哈希、交易哈希或地址"
 #: public/views/index.html
 msgid "See all blocks"
 msgstr "参考所有区块"
+
+#: public/views/index.html
+msgid "See all transcations"
+msgstr "参考所有交易"
 
 #: public/views/transaction_sendraw.html
 msgid "Send transaction"
