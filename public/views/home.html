@@ -10,16 +10,15 @@
         </div>
         <iframe src="graph/index.html#/graph" frameborder="0"></iframe>
     </div>
-
-    <div class="tab1">
-        <table>
-            <tr class="bbt">
-                <td class="td1"><a href="address/{{searchAddr}}">{{searchAddr}}</a></td>
-                <td>{{blackaddr.comment}}</td>
-                <td class="td2">0.017463 BTC</td>
-            </tr>
-        </table>
-    </div>
+     <div class="tab1">
+	    	<table>
+	    		<tr class="bbt">
+	    			<td class="td1"><a href="address/{{searchAddr}}">{{searchAddr}}</a></td>
+	    			<td>{{blackaddr.comment}}</td>
+	    			<td class="td2">{{balance}} BTC</td>
+	    		</tr>	    		
+	    	</table>
+	    </div>
     <div data-ng-include src="'views/includes/connection.html'"></div>
 
     <!--    	<input data-ng-show="true" type="text" data-ng-change="" data-ng-model="addr" value="2NCRHyeRjyo1bUiZXLLymapcPxLDrrXY5Gn"> -->

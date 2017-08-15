@@ -192,7 +192,7 @@ networkGraph = function (nameService) {
   }
 
   function serverGetInfo(address) {
-    console.log('##############serverGetInfo:'+address);
+/*    console.log('##############serverGetInfo:'+address);*/
     if (!nodes[nodeMap[address]] || !nodes[nodeMap[address]].account.index) {
         /*
         remote.getAccountInfo(address)
@@ -861,7 +861,7 @@ networkGraph = function (nameService) {
                 trustLines: [],
                 balances: {}
               }
-              console.log("account ---- "+account);
+              //console.log("account ---- "+account);
               newNodes.push(node);
               nodes.push(node);
 

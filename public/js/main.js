@@ -1154,7 +1154,7 @@ angular.module('insight.status').controller('StatusController',
 
 // Source: public/src/js/controllers/transactions.js
 angular.module('insight.transactions',['ngSanitize', 'ngCsv']).controller('transactionsController',
-function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks/*,BlackByAddr*/) {
+function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,BlacklistService,Address) {
   $scope.global = Global;
   $scope.loading = false;
   $scope.loadedBy = null;
@@ -1194,12 +1194,21 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
   var _blackAddr = function(){
       var addr = $scope.searchAddr;
-      // BlackByAddr.get({
-      //     addr:addr
-      // }, function(data) {
-      //   $scope.blackaddr = data;
-      // });
-      
+      BlacklistService.get({}, function (res) {
+        var data = res.data;
+         for(var i in data){
+          if(addr===data[i].addr){
+               $scope.blackaddr = data[i];
+            }
+         }
+        
+      }); 
+      Address.get({
+          addrStr: addr
+        },
+        function(address) {
+         $scope.balance =  address.balance;
+        });   
   }
 
   $scope.lookTX = function(imgstr){
