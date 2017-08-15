@@ -28,11 +28,11 @@ angular.module('insight.blacklists').controller('BlacklistsController',
     // click dialog's add btn
     $scope.doAdd = function () {
       if (!$scope.newblacklist || !$scope.newblacklist.addr) {
-        $scope.newblacklist = {addr:'please input address'}
+        $scope.newblacklist = {addr:'地址不能为空'}
       } else if ($scope.newblacklist.addr.length < 34
       || $scope.newblacklist.addr.length > 35) {
         // TODO 还需要验证地址的有效性
-        $scope.newblacklist.addr = 'invalid address'
+        $scope.newblacklist.addr = '无效的地址'
       } else {
         $scope.isAdd = false;
         $scope.saveBlacklist($scope.newblacklist);
@@ -81,6 +81,10 @@ angular.module('insight.blacklists').controller('BlacklistsController',
 
     // click cancel btn----------------------------------------
     $scope.cancelMode = function () {
+      angular.forEach($scope.blacklists, function (i) {
+        i.checked = false;
+      })
+      $scope.checked = [];
       $scope.bedit = true;
     };
 
@@ -95,8 +99,8 @@ angular.module('insight.blacklists').controller('BlacklistsController',
       } else {
         angular.forEach($scope.blacklists, function (i) {
           i.checked = false;
-          $scope.checked = [];
         })
+        $scope.checked = [];
       }
       // console.log('Achecked:',$scope.checked);
     };
@@ -153,7 +157,7 @@ angular.module('insight.blacklists').controller('BlacklistsController',
       // console.log($scope.bedit,'SAVE: ',$scope.newblacklist)
 
       // $scope.status = 'loading';
-      if (!$scope.bedit) {
+      if ($scope.isEdit) {
         $http.patch(Service.apiPrefix + '/blacklist/' + blacklist.addr,
           blacklist)
           .success(function(data, status, headers, config) {
