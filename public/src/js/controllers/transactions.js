@@ -127,7 +127,6 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
     };
 
 
-
   var _aggregateItems = function(items) {
     if (!items) return [];
 
