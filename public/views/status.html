@@ -41,7 +41,7 @@
           </tr>
           <tr>
             <td translate>Initial Block Chain Height</td>
-            <td class="text-right">{{sync.blockChainHeight}}</td>
+            <td class="text-right"><a href="block-index/{{sync.blockChainHeight}}">{{sync.blockChainHeight}}</a></td>
           </tr>
           <tr>
             <td translate>Synced Blocks</td>
@@ -63,8 +63,8 @@
         <thead data-ng-include src="'views/includes/infoStatus.html'"></thead>
         <tbody>
           <tr>
-            <td translate>Last Block Hash (Bitcoind)</td>
-            <td class="text-right ellipsis"><a href="block/{{lastblockhash}}">{{lastblockhash}}</a></td>
+            <td style="width: 30%" translate>Last Block Hash (Bitcoind)</td>
+            <td  class="text-right ellipsis"><a href="block/{{lastblockhash}}">{{lastblockhash}}</a></td>
           </tr>
           <tr>
             <td translate>Current Blockchain Tip (insight)</td>

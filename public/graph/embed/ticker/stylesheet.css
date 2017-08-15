@@ -1,0 +1,198 @@
+.closer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  padding: 3px 5px;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 10px;
+  color: #000;
+  cursor: pointer;
+}
+
+.closer:hover {
+  color: #666;
+}
+
+.info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 60px;
+  color: #000;
+}
+
+.infoText {
+  width: 20px;
+  height: 60px;
+  padding: 2px 1px;
+  overflow: hidden;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#prices {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 60px;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #F5F5F5;
+}
+
+#prices .ticker {
+  display: inline-block;
+  margin: 15px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+#prices .hidden {
+  display: none;
+}
+
+#prices .pct {
+  display: inline-block;
+  margin: 5px 5px 5px 0px;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+#prices .pctUp {
+  color: #483;
+}
+
+#prices .pctDown {
+  color: #a22;
+}
+
+#prices .price {
+  display: inline-block;
+  margin: 5px;
+  font-weight: 700;
+  color: #3C3C3C;
+}
+
+#prices .baseGateway {
+  display: inline-block;
+  font-size: 12px;
+  color: #346aa9;
+}
+
+#prices .counterGateway {
+  display: inline-block;
+  font-size: 12px;
+  color: #346aa9;
+}
+
+#prices .baseCurrency {
+  display: inline-block;
+  font-weight: 300;
+}
+
+#prices .counterCurrency {
+  display: inline-block;
+  margin: 5px 5px 5px 0px;
+  font-weight: 300;
+}
+
+#prices .priceStatus {
+  display: inline-block;
+  width: 10px;
+  height: 5px;
+  padding-bottom: 2px;
+}
+
+#prices #scrollingText {
+  position: relative;
+  top: 150px;
+  width: 100%;
+  height: 16px;
+  padding: 2px 0px;
+  border: solid 1px #ccc;
+}
+
+/* animation for png loader */
+
+@keyframes rotating {
+  from {
+    -webkit-transform: rotate(0deg);
+       -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+         -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+       -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+         -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+  from {
+    -webkit-transform: rotate(0deg);
+       -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+         -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+       -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+         -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.tickerLoader {
+  position: absolute;
+  top: 17px;
+  right: 0;
+  left: 0;
+  width: auto;
+  height: 25px;
+  margin: auto;
+  -webkit-animation: rotating 1s linear infinite;
+     -moz-animation: rotating 1s linear infinite;
+      -ms-animation: rotating 1s linear infinite;
+       -o-animation: rotating 1s linear infinite;
+          animation: rotating 1s linear infinite;
+}
+
+div.scrollingHotSpotLeft {
+  position: absolute;
+  left: 0;
+  z-index: 200;
+  width: 10%;
+  height: 100%;
+  min-width: 75px;
+}
+
+div.scrollingHotSpotRight {
+  position: absolute;
+  right: 0;
+  z-index: 200;
+  width: 10%;
+  height: 100%;
+  min-width: 75px;
+}
+
+div.scrollWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+div.scrollableArea {
+  position: relative;
+  width: auto;
+  height: 100%;
+}

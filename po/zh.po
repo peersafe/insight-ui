@@ -119,7 +119,7 @@ msgstr "完成"
 
 #: public/views/transaction.html public/views/transaction/tx.html
 msgid "Confirmations"
-msgstr "确认书"
+msgstr "确认"
 
 #: public/views/includes/header.html
 msgid "Conn"
@@ -253,7 +253,7 @@ msgstr "挖掘时间"
 
 #: public/views/block.html public/views/block_list.html public/views/index.html
 msgid "Mined by"
-msgstr "挖矿人"
+msgstr "矿池"
 
 #: public/views/status.html
 msgid "Mining Difficulty"
@@ -277,7 +277,7 @@ msgstr "没找到匹配的记录"
 
 #: public/views/address.html
 msgid "No. Transactions"
-msgstr "交易笔数"
+msgstr "交易号码"
 
 #: public/views/block.html
 msgid "Number Of Transactions"
@@ -321,7 +321,7 @@ msgstr "重定向中..."
 
 #: public/views/includes/search.html
 msgid "Search for block, transaction or address"
-msgstr "查找区块，交易，或地址"
+msgstr "查询区块高度、区块哈希、交易哈希或地址"
 
 #: public/views/index.html
 msgid "See all blocks"
@@ -483,11 +483,11 @@ msgstr "未验证"
 
 #: public/views/transaction.html public/views/transaction/tx.html
 msgid "Unconfirmed Transaction!"
-msgstr "未验证的交易!"
+msgstr "未确认!"
 
 #: public/views/address.html
 msgid "Unconfirmed Txs Balance"
-msgstr "未确认的Txs余额"
+msgstr "未确认的交易余额"
 
 #: public/views/index.html
 msgid "Value Out"

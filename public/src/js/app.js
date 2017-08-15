@@ -23,7 +23,10 @@ angular.module('insight',[
   'insight.status',
   'insight.connection',
   'insight.currency',
-  'insight.messages'
+    'insight.messages',
+    'insight.history',
+    'insight.blacklists',
+  'insight.login'
 ]);
 
 angular.module('insight.system', []);
@@ -37,3 +40,6 @@ angular.module('insight.status', []);
 angular.module('insight.connection', []);
 angular.module('insight.currency', []);
 angular.module('insight.messages', []);
+angular.module('insight.history', []);
+angular.module('insight.blacklists', []);
+angular.module('insight.login', []);

@@ -30,10 +30,10 @@ img{border:0;vertical-align:middle}
 table{border-collapse:collapse;border-spacing:0}
 p{word-wrap:break-word;}
 .mdWrap{width: 100%; height: 120px;  position: absolute; left: 0; top: 0;}
-.md{ width: 382px; height: 40px; margin: 0 auto;}
-.md input{width: 380px; height: 35px; padding-left: 10px; background: rgba(28,41,59,0.7); border:1px solid #fff; color: #fff;border-radius: 3px; font-size: 16px; margin-top: 40px;}
-.tab1{width: 1200px; margin: 20px auto 0;}
-.tab1 table{width: 1200px; border-top: 1px solid #eee;}
+.md{ width: 470px; height: 40px; margin: 0 auto;}
+.md input{width: 380px; height: 38px; padding-left: 10px; background: rgba(28,41,59,0.7); border:1px solid #fff; color: #fff;border-radius: 3px; font-size: 16px; margin-top: 40px;}
+.tab1{width: 1140px; margin: 20px auto 0;}
+.tab1 table{width: 1140px; border-top: 1px solid #eee;}
 .grey{ background: #f4fdfc;}
 .bbt{background: #30bfa1; color: #666;}
 .bbt a{color: #fff;}
@@ -94,9 +94,9 @@ table a{color: #30bfa1;}
 .nblock table tr{height: 40px; border-bottom: 1px solid #eee;}
 #bejy{border: none; background: none;}
 #sp-jy{margin-left: 205px;}
-.bot{width: 80px; height: 40px; position: absolute; left: 50%; bottom: 20px;}
-.bot span{position: absolute; left: 0; top: 0; cursor: pointer;}
-.bot .span2{display: none;}
+.thar{height: 50px;}
+.bot{width: 80px; height: 40px; bottom: 20px;margin-right: 30%;float: right;}
+.bot span{left: 0; top: 0; cursor: pointer;}
 .mp-tit{text-align: center;font-size: 22px;}
 .smid{width: 1200px; margin: 30px auto;}
 .clear{zoom:1;}
@@ -113,34 +113,35 @@ table a{color: #30bfa1;}
 .zs{display: none;}
 .history{width: 1200px;margin: 0 auto;position: relative;}
 .history h1{font-size: 22px;margin-top: 30px;text-align: center;}
-.hdr{width: 1140px; background: #f4fdfc; border-radius: 5px; padding: 30px;margin-top: 30px; padding-bottom: 90px;}
+.hdr{width: 1140px; background: #f4fdfc; border-radius: 5px; padding: 30px;margin-top: 30px; padding-bottom: 90px;border: 1px solid #ddd;}
 .hdr .tab1{width: 1140px;margin-bottom: 20px;font-size: 16px; font-weight: bold;margin-top: 0;}
 .hdr .tab1.td1{text-align: left;}
 .hdr .tab1 .td2{text-align: right;}
 .hdr .tab2{width: 1140px;height: 50px; border: 1px solid #ddd; border-radius: 3px; background: #fff; margin-top: 10px; font-size: 14px; font-weight: normal; margin-bottom: 0;}
 .hdr .tab2 tr td{padding:0 10px;}
-.hdr b{width:200px; height: 40px; text-align: center;line-height: 40px; color: #fff; border-radius: 3px;background: #30bfa1;position: absolute; right: 30px; bottom: 20px;}
+.hdr b{width:200px; height: 40px; text-align: center;line-height: 40px; color: #fff; border-radius: 3px;background: #30bfa1;float: right;}
 .dc{color: #30bfa1;}
 /* 黑名单 */
 .bla-tit{height: 40px; margin-bottom: 30px;}
-.bla-tit input{width: 500px; height: 40px;border-radius: 3px; border: 1px solid #ddd;padding-left: 10px; float: left;background: #fff;}
+.bla-tit input{width: 400px; height: 40px;border-radius: 3px; border: 1px solid #ddd;padding-left: 10px; float: left;background: #fff;}
 .xg{float: right; margin-top: 10px;font-size: 16px;color: #30bfa1;}
 .xg span{cursor: pointer;}
 .nb-more{display: none;}
-.del-popWrap{width: 100%; height: 100%; background: rgba(0,0,0,0.5); position: fixed; left: 0; top: 0; display: none; z-index: 999;}
+.del-popWrap{width: 100%; height: 100%; background: rgba(0,0,0,0.5); position: fixed; left: 0; top: 0; z-index: 999;}
 .del-pop{width: 550px; height: 220px; background: #fff; border-radius: 5px; border: 1px solid #ddd; position: absolute; left: 50%; top: 25%; margin-left: -275px;}
 .deltit{width: 100%; height:40px;text-align: center;line-height: 40px; border-bottom: 1px solid #ddd;}
 .del-pop h5{font-size: 16px; text-align: center;margin: 20px 0; font-weight: normal;}
 .del-pop button{width: 120px; height: 40px; margin-left: 105px; margin-top: 30px; border: none; color: #fff;border-radius: 3px; background: #30bfa1; cursor: pointer;}
 .del-pop button.fou{background: #2fa4d7;}
-.tian-popWrap , #tian-popWrap{width: 100%; height:100%; background: rgba(0,0,0,0.5); position: absolute; left: 0; top: 0; z-index: 999;display: none;}
+.tian-popWrap{width: 100%; height:100%; background: rgba(0,0,0,0.5); position: absolute; left: 0; top: 0; z-index: 999;}
+#tian-popWrap{width: 100%; height:100%; background: rgba(0,0,0,0.5); position: absolute; left: 0; top: 0; z-index: 999;display: none}
 .tian-pop{width: 600px; position: absolute; left: 50%; top: 140px; margin-left: -350px; background: #fff;padding: 50px;}
 .tian-pop img{position: absolute; top: -15px; right:-15px; cursor: pointer;}
 .tian-pop input{width: 500px; height: 35px; border: 1px solid #ddd;background: #fff; padding-left: 10px;}
 .tian-pop span{float: left; width: 50px; display: inline-block; text-align: right; margin-top: 8px;margin-right: 10px;}
 .tian-pop textarea{width: 500px;height: 250px; resize: none; margin-top: 30px;border: 1px solid #ddd; padding-left: 10px;background: #fff;}
 .tian-pop .bzh{margin-top: 27px;}
-.tian-pop button{width: 150px; height: 40px; margin-left: 260px; margin-top: 30px; border: none; color: #fff;border-radius: 3px; background: #30bfa1; cursor: pointer;}
+.tian-pop button{width: 150px; height: 40px; margin-left: 160px; margin-top: 30px; border: none; color: #fff;border-radius: 3px; background: #30bfa1; cursor: pointer;}
 .bxg{cursor: pointer;}
 .wquan{width: 1200px; margin: 0 auto;}
 .wban , .wban .wtab1{width: 1000px; float: left; margin-top: 0;}
@@ -150,7 +151,6 @@ table a{color: #30bfa1;}
 .jiantou{display: inline-block; width: 40px;height: 35px;margin-left: 5px;}
 .jiaozu h1{float: left;}
 .jiantou img{float: left;margin-top: -2px;margin-left: 5px; cursor: pointer;}
-.you , .zuo{display: none;}
 .jiwtit{height: 40px;background: #f4fdfc; padding: 13px 10px 0; border: 1px solid #eee; border-bottom: none;}
 #jiay{margin-top: 0;}
 .bm-center{width: 1200px; margin: 0 auto;}
@@ -162,29 +162,51 @@ table a{color: #30bfa1;}
 .bmbmmid p{text-align: center;font-size: 20px;}
 .rili{margin-left: 48px; margin-top: 15px;}
 /* 登录 */
-.login-nav{width: 1200px; height: 80px; margin: 30px auto; font-size: 28px; color: #30bfa1;}
+.login-nav{width: 1200px; height: 80px; margin: 0 auto 30px; font-size: 28px; color: #30bfa1;}
 .login-nav b{line-height: 80px;}
 .login-content{width: 100%; height: 680px; background: #30bfa1;}
-.lon-con{width: 1200px; height: 680px;margin: 0 auto;}
+.lon-con{width: 100%; height: 680px;margin: 0 auto;}
 .lon-con img{margin-top: 40px;}
-.lon-con .form1{width: 340px; height: 300px; background: #fff;float: right; margin-top: 130px;padding: 30px; border-radius: 3px;}
-.lon-con .lin{width: 300px; height: 33px; border: 1px solid #dfdfdf;padding-left: 10px;}
+.lon-con .form1{width: 340px; height: 300px; background: #fff;float: right; margin: 160px 50px 0 0;padding: 30px; border-radius: 3px;}
+.lon-con .lin{width: 260px; height: 33px; border: 1px solid #dfdfdf;padding-left: 10px;}
 .login-col{position: relative; margin-top: 40px;margin-left: 15px;}
 .login-col p{margin-bottom: 5px;}
 .lon-con .div1{width: 80px; height: 35px;line-height: 15px; background: #3080ec; position: absolute; top: 25px; right: 13px;}
 .laa{margin-left: 15px; color: #3080ec;line-height: 40px;}
-.lo-btn{width: 200px; margin: 50px 0 0 75px;}
+.lo-btn{width: 200px; margin: 50px 0 0 50px;}
 .lo-btn .ddlu{width:200px; height: 35px; background: #30bfa1; border-radius: 5px; color: #fff;display: inline-block;text-align: center;line-height: 33px;}
 .lo-btn .ddlu:hover{background: #38d6b5;}
 .lo-btn span{margin-top: 12px; margin-left: 15px;float: right;}
 .lo-btn span b a{color: #3080ec;}
 .lo-foo{width: 1200px; margin: 30px auto;color: #999;}
 .lon-con .form2{width: 500px; height: auto; background: #fff;float: right; margin-top: 40px;padding: 50px 40px;border-radius: 3px;}
-.rrll{position: absolute;left: 500px; top: 692px;}
-.rrll img{position: absolute; right: 5px; top: 3px;}
-#rangeA{width: 250px; height: 30px; border: 1px solid #30bfa1;padding-left: 10px;}
+.rrll {
+    display: inline-block;
+    margin-left: 30px;
+}
+.rrll img {
+       cursor: pointer;
+}
+.rangeA{width: 150px; height: 30px; border: 1px solid #30bfa1;padding-left: 10px;}
 .bmbmlt button{width: 150px; height: 35px; border: none; color: #fff; background: #2fa4d7;border-radius: 3px; margin-left: 58px; margin-top: 20px; cursor: pointer;}
 .bmbmlt button:hover{background: #31b1e9;}
 @media screen and (max-width: 1400px) {
     .rrll{left: 210px;}
+}
+.daochu {
+    color: #30bfa1;
+    cursor: pointer;
+    float: right;
+    font-size: 18px;
+    font-weight: 700;
+}
+.dateimg{cursor: pointer;}
+.md #searchButton {
+	width: 50px;
+	height: 38px;
+	margin: 5px;
+	color: #fff;
+	background: rgba(150,150,150,0.7);
+	border: 1px solid #999;
+	border-radius: 4px
 }

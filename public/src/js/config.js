@@ -24,11 +24,19 @@ angular.module('insight').config(function($routeProvider) {
       title: 'Bitcoin Transaction '
     }).
     when('/', {
-      templateUrl: 'views/index.html',
-      title: 'Home'
+      templateUrl: 'views/login.html',
+      title: 'Login'
     }).
     when('/blocks', {
       templateUrl: 'views/block_list.html',
+      title: 'Bitcoin Blocks solved Today'
+    }).
+     when('/transcations', {
+      templateUrl: 'views/transcation_list.html',
+      title: 'Bitcoin Blocks solved Today'
+    }).
+     when('/blocks-index', {
+      templateUrl: 'views/index.html',
       title: 'Bitcoin Blocks solved Today'
     }).
     when('/blocks-date/:blockDate/:startTimestamp?', {
@@ -47,8 +55,8 @@ angular.module('insight').config(function($routeProvider) {
       templateUrl: 'views/history.html',
       title: 'History'
     }).
-    when('/blacklist', {
-      templateUrl: 'views/blacklist.html',
+    when('/blacklists', {
+      templateUrl: 'views/blacklists.html',
       title: 'Blacklist'
     }).
     when('/messages/verify', {

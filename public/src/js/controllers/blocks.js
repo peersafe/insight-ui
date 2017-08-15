@@ -4,6 +4,7 @@ angular.module('insight.blocks').controller('BlocksController',
   function($scope, $rootScope, $routeParams, $location, Global, Block, Blocks, BlockByHeight) {
   $scope.global = Global;
   $scope.loading = false;
+  $scope.excelblocks = [];
 
   if ($routeParams.blockHeight) {
     BlockByHeight.get({
@@ -18,12 +19,26 @@ angular.module('insight.blocks').controller('BlocksController',
 
   //Datepicker
   var _formatTimestamp = function (date) {
-    var yyyy = date.getUTCFullYear().toString();
-    var mm = (date.getUTCMonth() + 1).toString(); // getMonth() is zero-based
-    var dd  = date.getUTCDate().toString();
+    var yyyy = date.getFullYear().toString();
+    var mm = (date.getMonth() + 1).toString(); // getMonth() is zero-based
+    var dd  = date.getDate().toString();
 
     return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]); //padding
   };
+
+      //Datepicker
+      var _formatTime = function (date) {
+          var yyyy = date.getFullYear().toString();
+          var mm = (date.getMonth() + 1).toString(); // getMonth() is zero-based
+          var dd  = date.getDate().toString();
+          var h  = date.getHours().toString();
+          var m  = date.getMinutes().toString();
+          var s  = date.getSeconds().toString();
+
+          return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]) + " " + (h[1] ? h : '0' + h[0]) + ":" + (m[1] ? m : '0' + m[0]) + ":" + (s[1] ? s : '0' + s[0]) ; //padding
+      };
+
+  $scope.dateval = _formatTimestamp(new Date());
 
   $scope.$watch('dt', function(newValue, oldValue) {
     if (newValue !== oldValue) {
@@ -67,6 +82,10 @@ angular.module('insight.blocks').controller('BlocksController',
     }, function(res) {
       $scope.loading = false;
       $scope.blocks = res.blocks;
+      res.blocks.forEach(function(data){
+          console.log(data)
+          $scope.excelblocks.push({height:data.height,time:_formatTime(new Date(data.time * 1000)),confirmations:data.txlength + "个确认数",poolInfo:data.poolInfo.poolName||"",size:data.size})
+      })
       $scope.pagination = res.pagination;
     });
   };
