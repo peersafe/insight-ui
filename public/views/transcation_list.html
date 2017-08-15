@@ -1,0 +1,64 @@
+<div data-ng-include src="'views/includes/connection.html'"></div>
+<section data-ng-controller="transactionsController" data-ng-init="initLoadTXByheight()">
+  <div class="row">
+    <div class="col-xs-12 col-gray col-gray-fixed">
+      <div class="block-1">
+       <!--  <div class="icon-block text-center">
+          <span class="glyphicon glyphicon-list"></span>
+          <h3><span translate>Blocks</span> <br> 
+            <span translate>mined on:</span></h3>
+        </div> -->
+        <div class="bmbmcon">
+        <img src="images/menu.png" alt="" width="55">
+        <p>所有交易</p>
+        </div>
+      </div>
+    
+      <div >
+        <input class="block_height" placeholder="" data-ng-model="blockHeight">
+        <img class="dateimg" src="images/search.png" alt="" data-ng-click="loadTXByheight()" height="35">
+        <div class="m20v text-center">
+          <a class="btn btn-primary" data-ng-click="prevHeight()"><small>&larr; {{parseint(blockHeight)-1}}</small></a>
+          <a class="btn btn-primary" data-ng-click="nextHeight()" data-ng-hide="iscurheight"><small>{{parseint(blockHeight)+1}} &rarr;</small></a>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-10 col-md-offset-3">
+      <div class="page-header">
+        <h1>
+          <span translate>交易</span>
+          <span class="daochu" ng-csv="excelhtxs" add-bom="true" csv-header="['交易哈希','交易产生时间','交易金额 ','交易状态']" filename="交易信息表_{{dateval}}.csv" >导出</span>
+        </h1>
+      </div>
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th translate colspan="3">交易哈希</th>
+            <th translate class="text-right">交易产生时间</th>
+            <th class="text-right" translate>交易金额</th>
+            <th class="text-right hidden-xs" translate>交易状态</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-show="loading">
+          <td colspan="5"><span translate>Waiting for transcations...</span> <span class="loader-gif"></span></td>
+        </tr>
+        <tr class="fader" data-ng-repeat='tx in htxs'>
+           <td colspan="3" >
+              <a class="ellipsis" href="tx/{{tx.txid}}">{{tx.txid}}</a>
+            </td>
+            <td class="text-right"><span class="ellipsis">{{humanSince(tx.time)}}</span></td>
+            <td class="text-right"><span class="ellipsis">{{$root.currency.getConvertion(tx.valueOut) || tx.valueOut + ' BTC'}}</span></td>
+            <td class="text-right"><span class="ellipsis">{{tx.confirmations}}个确认数</span></td>
+        </tr>
+        </tbody>
+      </table>
+      <div data-ng-if="pagination.more">
+        <a class="btn btn-primary" href="blocks-date/{{pagination.current}}" data-ng-show="{{before}}">Lastest block from date</a>
+        <a class="btn btn-primary" href="blocks-date/{{pagination.current}}/{{pagination.moreTs}}">Older blocks from this date</a>
+      </div>
+    </div>
+  </div>
+  <h2 class="text-center text-muted" data-ng-show="!htxs.length && !loading"
+    translate>No blocks yet.</h2>
+</section>
