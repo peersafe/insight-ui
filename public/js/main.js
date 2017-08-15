@@ -1204,6 +1204,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
   $scope.lookTX = function(imgstr){
     isHome=false;
+    $scope.loading = true;
     if(imgstr==="you"){
         txdirection_you=false;
         $scope.youShow=!$scope.youShow;
@@ -1368,7 +1369,6 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   };
 
   var _TxByDate = function(data){
-      $scope.loading = false;
       pagesTotal = data.pagesTotal;
       pageNum += 1;
       var txCount = 0;
@@ -1384,6 +1384,8 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
       })
       if(txCount<10&&pageNum<Math.round(pagesTotal/10)){
         _byAddress();
+      }else{
+         $scope.loading = false;
       }
   }
   var _Txdirection = function(tx){
