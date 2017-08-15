@@ -1,26 +1,28 @@
- <div data-ng-if="true" data-ng-controller="transactionsController" data-ng-init="load('address')">
-  	    <div class="if">
-		    <div class="mdWrap" data-ng-show="false">
-		    	    	<div class="md">
-		    	    		<input id="searchAddress" type="text" data-ng-model="searchAddr" >
-		    	    		<input id="searchButton" type="button" ng-click="searchByAddr()"  value="GO">
-		    	    	</div>
-		    </div>  
-	    	<iframe src="graph/index.html#/graph" frameborder="0"></iframe> 
-	    </div>
-	  
-	    <div class="tab1">
-	    	<table>
-	    		<tr class="bbt">
-	    			<td class="td1"><a href="address/{{searchAddr}}">{{searchAddr}}</a></td>
-	    			<td>{{blackaddr.comment}}</td>
-	    			<td class="td2">0.017463 BTC</td>
-	    		</tr>	    		
-	    	</table>
-	    </div>
-	    <div data-ng-include src="'views/includes/connection.html'"></div>
+<div data-ng-include="'views/login.html'" data-ng-hide="isLogin"></div>
+<div data-ng-if="true" data-ng-controller="transactionsController" data-ng-show="isLogin"
+     data-ng-init="load('address')">
+    <div class="if">
+        <div class="mdWrap" data-ng-show="false">
+            <div class="md">
+                <input id="searchAddress" type="text" data-ng-model="searchAddr">
+                <input id="searchButton" type="button" ng-click="searchByAddr()" value="GO">
+            </div>
+        </div>
+        <iframe src="graph/index.html#/graph" frameborder="0"></iframe>
+    </div>
 
-<!--    	<input data-ng-show="true" type="text" data-ng-change="" data-ng-model="addr" value="2NCRHyeRjyo1bUiZXLLymapcPxLDrrXY5Gn"> -->
+    <div class="tab1">
+        <table>
+            <tr class="bbt">
+                <td class="td1"><a href="address/{{searchAddr}}">{{searchAddr}}</a></td>
+                <td>{{blackaddr.comment}}</td>
+                <td class="td2">0.017463 BTC</td>
+            </tr>
+        </table>
+    </div>
+    <div data-ng-include src="'views/includes/connection.html'"></div>
+
+    <!--    	<input data-ng-show="true" type="text" data-ng-change="" data-ng-model="addr" value="2NCRHyeRjyo1bUiZXLLymapcPxLDrrXY5Gn"> -->
     <div data-ng-include src="'views/transaction/list.html'" when-scrolled="loadMore()"></div>
-  </div>
+</div>
 
