@@ -129,11 +129,8 @@ networkGraph = function (nameService) {
       refocus(string, true);
 
     } else {
-    	console.log('##############Please enter a valid ripple address');
-      eraseGraph();
-      $('.loading')
-        .text('Please enter a valid ripple address.')
-        .css("color","#a00");
+    	changeMode('individual');
+      refocus(string, true);
     }
   }
 
