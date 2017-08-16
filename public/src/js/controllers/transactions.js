@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.transactions',['ngSanitize', 'ngCsv']).controller('transactionsController',
-function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,BlacklistService,Address) {
+function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,Block,BlacklistService,Address,Status) {
   $scope.global = Global;
   $scope.loading = false;
   $scope.loadedBy = null;
@@ -15,6 +15,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   var pagesTotal = 1;
   var COIN = 100000000;
   var isHome=false;
+
  
    //Datepicker
   var _formatTimestamp = function (date) {
@@ -41,6 +42,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
   var _blackAddr = function(){
       var addr = $scope.searchAddr;
+      $scope.blackaddr="";
       BlacklistService.get({}, function (res) {
         var data = res.data;
          for(var i in data){
@@ -219,9 +221,9 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
         if(_Txdirection(tx)){
           _processTX(tx);
           $scope.txs.push(tx);
-          $scope.exceltxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),value:tx.valueOut + " BTC",confirmations:tx.confirmations+"个确认数"});
+          $scope.exceltxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),value:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认数"});
           console.log(tx.time);
-          $scope.exceladdtxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),valueIn:tx.valueIn + " BTC",valueOut:tx.valueOut + " BTC",confirmations:tx.confirmations+"个确认数"});
+          $scope.exceladdtxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),valueIn:tx.valueIn + " BTC",valueOut:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认数"});
         }
       }
      
@@ -238,8 +240,8 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
              if(_Txdirection(tx)){
                 _processTX(tx);
                 $scope.txs.push(tx);
-                $scope.exceltxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),value:tx.valueOut + " BTC",confirmations:tx.confirmations+"个确认数"});
-                $scope.exceladdtxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),valueIn:tx.valueIn + " BTC",valueOut:tx.valueOut + " BTC",confirmations:tx.confirmations+"个确认数"});
+                $scope.exceltxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),value:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认数"});
+                $scope.exceladdtxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),valueIn:tx.valueIn + " BTC",valueOut:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认数"});
              }
           }
       })
@@ -344,19 +346,14 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
     }
   };
 
+ 
+
   $scope.htxs= [];
   $scope.excelhtxs=[];
   var curHeight = 0;
   $scope.iscurheight = true;
   $scope.initLoadTXByheight = function() {
-      Blocks.get({
-        limit: 1
-      }, function(res) {
-        $scope.blockhash = res.blocks[0].hash;
-        curHeight = res.blocks[0].height;
-        $scope.blockHeight = curHeight;
-        _getcurData();
-      });
+      _initData();
   };
    //Load transactions for pagination
   $scope.loadTXByheight = function() {
@@ -376,7 +373,28 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
           _getcurData();
       })
   };
- 
+ var _initData = function(){
+       Status.get({
+          q: 'getLastBlockHash'
+        },
+        function(d) {
+          console.log(d.lastblockhash);
+          _getBlockDateByHash(d.lastblockhash);
+        });
+    }
+  var _getBlockDateByHash = function (blockhash) {
+          Block.get({
+              blockHash:blockhash
+          },function(data){
+
+              $scope.blockhash = blockhash;
+              curHeight = data.height;
+              $scope.blockHeight = curHeight;
+              _getcurData();
+          })
+
+    }
+
   var _getcurData = function(){
      var hash = $scope.blockhash;
      console.log(hash);

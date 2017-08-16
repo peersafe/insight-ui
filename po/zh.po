@@ -131,7 +131,11 @@ msgstr "连接数"
 
 #: public/views/status.html
 msgid "Connections to other nodes"
+<<<<<<< HEAD
 msgstr "连接数"
+=======
+msgstr "节点连接数"
+>>>>>>> 77cdfa59eeb466faff274788943bdbf1117e1f15
 
 #: public/views/status.html
 msgid "Current Blockchain Tip (insight)"
