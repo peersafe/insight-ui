@@ -549,6 +549,7 @@ margin-left: 0;
 }
 
 .btn-copy {
+  display: none;
   background: transparent url('../img/icons/copy.png') center center no-repeat;
 }
 

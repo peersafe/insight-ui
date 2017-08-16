@@ -31,13 +31,13 @@
       </a>
     </div>
   </div>
-  <h1>Block #{{block.height}}</h1>
+  <h1>区块 #{{block.height}}</h1>
   <div class="text-muted" data-ng-if="!block.hash">
     <span translate>Loading Block Information</span>  <span class="loader-gif"></span>
   </div>
   <div data-ng-if="block.hash">
     <div class="well well-sm ellipsis">
-      <strong>BlockHash</strong> 
+      <strong translate>Blockhash</strong>
       <span class="txid text-muted">{{block.hash}}</span>
       <span class="btn-copy" clip-copy="block.hash"></span>
     </div>

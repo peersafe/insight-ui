@@ -1,4 +1,5 @@
- 	<div class="history" data-ng-controller="HistoryController">
+	<div data-ng-include="'views/login.html'" data-ng-hide="isLogin"></div>
+	<div class="history" data-ng-show="isLogin" data-ng-controller="HistoryController">
 	 		<h1>黑名单地址历史交易量统计</h1>
 	 		<div class="hdr" data-ng-repeat="history in histories">
 	 			<table class="tab1 historytable">

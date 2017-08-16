@@ -1,4 +1,5 @@
-	<section data-ng-controller="BlacklistsController" data-ng-init="">
+	<div data-ng-include="'views/login.html'" data-ng-hide="isLogin"></div>
+	<section data-ng-controller="BlacklistsController" data-ng-show="isLogin" data-ng-init="">
 		<div class="tian-popWrap" ng-show="isAdd">
 			<div class="tian-pop">
 				<img src="images/cuo.png" width="40" alt="" ng-click="cancelAdd()">
@@ -68,7 +69,7 @@
 	    			<td class="td5">更新时间</td>
 	    			<!--<td>操作</td>-->
 	    		</tr>
-				<tr class="fader" data-ng-repeat='b in blacklists | orderBy:b.time| filter:name_filter'>
+				<tr class="fader" data-ng-repeat='b in blacklists | orderBy:"b.addr":true | filter:name_filter'>
 					<td class="td1">
 						<input type="checkbox" ng-hide="bedit" ng-model="b.checked" ng-click="selectOne(b.addr)">
 					</td>

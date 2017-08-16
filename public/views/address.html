@@ -1,99 +1,101 @@
-<div data-ng-include src="'views/includes/connection.html'"></div>
-<section data-ng-controller="AddressController" data-ng-init="findOne()">
-  <div class="secondary_navbar hidden-xs hidden-sm" scroll data-ng-class="{'hidden': !secondaryNavbar}" data-ng-show="address.addrStr" data-ng-init="hideSNavbar=0">
-    <div class="container" data-ng-if="!hideSNavbar">
-      <div class="col-md-8 text-left">
-          <h3 translate>Address</h3> {{address.addrStr}}
-          <span class="btn-copy" clip-copy="address.addrStr"></span>
+<div data-ng-include="'views/login.html'" data-ng-hide="isLogin"></div>
+<div data-ng-show="isLogin">
+  <div data-ng-include src="'views/includes/connection.html'"></div>
+  <section data-ng-controller="AddressController" data-ng-init="findOne()">
+    <div class="secondary_navbar hidden-xs hidden-sm" scroll data-ng-class="{'hidden': !secondaryNavbar}" data-ng-show="address.addrStr" data-ng-init="hideSNavbar=0">
+      <div class="container" data-ng-if="!hideSNavbar">
+        <div class="col-md-8 text-left">
+            <h3 translate>Address</h3> {{address.addrStr}}
+            <span class="btn-copy" clip-copy="address.addrStr"></span>
+        </div>
+        <div class="col-md-4">
+          <span class="txvalues txvalues-primary"><strong translate>Final Balance</strong> {{$root.currency.getConvertion(address.balance) || address.balance + ' BTC' }}</span>
+        </div>
       </div>
-      <div class="col-md-4">
-        <span class="txvalues txvalues-primary"><strong translate>Final Balance</strong> {{$root.currency.getConvertion(address.balance) || address.balance + ' BTC' }}</span>
+      <div class="hide_snavbar">
+        <a href="javascript:void(0)" data-ng-click="hideSNavbar=!hideSNavbar">
+          <span data-ng-show="hideSNavbar"><span class="text-muted glyphicon glyphicon-chevron-down"></span></span>
+          <span data-ng-show="!hideSNavbar"><span class="text-muted glyphicon glyphicon-chevron-up"></span></span>
+        </a>
       </div>
     </div>
-    <div class="hide_snavbar">
-      <a href="javascript:void(0)" data-ng-click="hideSNavbar=!hideSNavbar">
-        <span data-ng-show="hideSNavbar"><span class="text-muted glyphicon glyphicon-chevron-down"></span></span>
-        <span data-ng-show="!hideSNavbar"><span class="text-muted glyphicon glyphicon-chevron-up"></span></span>
-      </a>
+    <h1><span translate>Address</span> <small data-ng-show="address.addrStr">{{$root.currency.getConvertion(address.balance) || address.balance + ' BTC'}}</small></h1>
+    <div class="text-muted" data-ng-if="!address.addrStr">
+      <span translate>Loading Address Information</span> <span class="loader-gif"></span>
     </div>
-  </div>
-  <h1><span translate>Address</span> <small data-ng-show="address.addrStr">{{$root.currency.getConvertion(address.balance) || address.balance + ' BTC'}}</small></h1>
-  <div class="text-muted" data-ng-if="!address.addrStr">
-    <span translate>Loading Address Information</span> <span class="loader-gif"></span>
-  </div>
-  <div data-ng-if="address.addrStr">
-    <div class="well well-sm ellipsis">
-      <strong translate>Address</strong> 
-      <span class="text-muted">{{address.addrStr}}</span>
-      <span class="btn-copy" clip-copy="address.addrStr"></span>
-    </div>
-    <h2 translate>交易统计 <small>已确认</small></h2>
-    <div class="row" data-ng-hide="!address.addrStr">
-      <div class="col-md-10">
+    <div data-ng-if="address.addrStr">
+      <div class="well well-sm ellipsis">
+        <strong translate>Address</strong>
+        <span class="text-muted">{{address.addrStr}}</span>
+        <span class="btn-copy" clip-copy="address.addrStr"></span>
+      </div>
+      <h2 translate>交易统计 <small>已确认</small></h2>
+      <div class="row" data-ng-hide="!address.addrStr">
+        <div class="col-md-10">
+          <table class="table">
+            <tbody>
+            <tr>
+              <td><strong translate>Total Received</strong></td>
+              <td class="ellipsis text-right">{{$root.currency.getConvertion(address.totalReceived) || address.totalReceived + ' BTC'}}</td>
+            </tr>
+            <tr>
+              <td><strong translate>Total Sent</strong></td>
+              <td class="ellipsis text-right">{{$root.currency.getConvertion(address.totalSent) || address.totalSent + ' BTC'}}</td>
+            </tr>
+            <tr>
+              <td><strong translate>Final Balance</strong></td>
+              <td class="ellipsis text-right">{{$root.currency.getConvertion(address.balance) || address.balance + ' BTC'}}</td>
+            </tr>
+            <tr>
+              <td><strong translate>No. Transactions</strong></td>
+              <td class="ellipsis text-right">{{address.txApperances}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-2 text-center">
+          <qrcode size="160" data="{{address.addrStr}}"></qrcode>
+        </div>
+      </div>
+      <div data-ng-show="true">
+        <h3 translate>Unconfirmed</h3>
         <table class="table">
           <tbody>
           <tr>
-            <td><strong translate>Total Received</strong></td>
-            <td class="ellipsis text-right">{{$root.currency.getConvertion(address.totalReceived) || address.totalReceived + ' BTC'}}</td>
+            <td class="small" translate>Unconfirmed Txs Balance</td>
+            <td class="address ellipsis text-right">{{$root.currency.getConvertion(address.unconfirmedBalance)}}</td>
           </tr>
           <tr>
-            <td><strong translate>Total Sent</strong></td>
-            <td class="ellipsis text-right">{{$root.currency.getConvertion(address.totalSent) || address.totalSent + ' BTC'}}</td>
+            <td class="small" translate>No. Transactions</td>
+            <td class="address ellipsis text-right">{{address.unconfirmedTxApperances}}</td>
           </tr>
-          <tr>
-            <td><strong translate>Final Balance</strong></td>
-            <td class="ellipsis text-right">{{$root.currency.getConvertion(address.balance) || address.balance + ' BTC'}}</td>
-          </tr>
-          <tr>
-            <td><strong translate>No. Transactions</strong></td>
-            <td class="ellipsis text-right">{{address.txApperances}}</td>
-          </tr>
+
           </tbody>
         </table>
       </div>
-      <div class="col-md-2 text-center">
-        <qrcode size="160" data="{{address.addrStr}}"></qrcode>
-      </div>
     </div>
-    <div data-ng-show="true">
-      <h3 translate>Unconfirmed</h3>
-      <table class="table">
-        <tbody>
-        <tr>
-          <td class="small" translate>Unconfirmed Txs Balance</td>
-          <td class="address ellipsis text-right">{{$root.currency.getConvertion(address.unconfirmedBalance)}}</td>
-        </tr>
-        <tr>
-          <td class="small" translate>No. Transactions</td>
-          <td class="address ellipsis text-right">{{address.unconfirmedTxApperances}}</td>
-        </tr>
-
-        </tbody>
-      </table>
+    <div data-ng-if="address.addrStr" data-ng-controller="transactionsController" data-ng-init="load('address')">
+      <h2 translate>交易 <div class="jiantou" style="padding-top: 12px;">
+              <img src="images/you.png" width="30" alt="" data-ng-show="youShow" data-ng-click="lookTX('you')" data-ng-model="txdirection_you" class="youg">
+              <img src="images/you-g.png" width="30" alt=""  data-ng-show="!youShow" data-ng-click="lookTX('you-g')" class="you">
+              <img src="images/zuo.png" width="30" alt=""  data-ng-show="zuoShow" data-ng-click="lookTX('zuo')" data-ng-model="xdirection_zuo" class="zuog">
+              <img src="images/zuo-g.png" width="30" alt=""  data-ng-show="!zuoShow" data-ng-click="lookTX('zuo-g')" class="zuo">
+          </div>
+              <div class="rrll">
+                <p class="lead text-center m20v">
+                <input data-ng-model="datevalaa" data-ng-show="false">
+                <input data-ng-model="datevalbb" data-ng-show="false">
+                <input class="rangeA" data-ng-model="datevala" class="btn btn-primary btn-xs" datepicker-popup show-button-bar="false" data-ng-click="openCalendara($event)" is-open="openeda" placeholder="年-月-日">
+                <span>--</span>
+                 <input class="rangeA" data-ng-model="datevalb" class="btn btn-primary btn-xs" datepicker-popup show-button-bar="false" data-ng-click="openCalendarb($event)" is-open="openedb" placeholder="年-月-日">
+                 <img class="dateimg" src="images/search.png" alt="" data-ng-click="searchByDate()" height="35">
+                </p>
+              <!--   <input type="text" class="range" data-ng-model="dateval"/>
+                <img class="dateimg" src="images/rili.png"  width="25" alt="">
+                <img class="dateimg" src="images/search.png" alt="" data-ng-click="searchByDate()" height="35"> -->
+              </div>
+              <span class="daochu" ng-csv="exceladdtxs" add-bom="true" csv-header="['交易哈希', '交易产生时间','转入金额','转出金额', '交易状态']" filename="{{address.addrStr}}_交易信息表_{{formatstime}}_{{formatetime}}.csv">导出</span></h2>
+      <div data-ng-include src="'views/transaction/list.html'" when-scrolled="loadMore()"></div>
     </div>
-  </div>
-  <div data-ng-if="address.addrStr" data-ng-controller="transactionsController" data-ng-init="load('address')">
-    <h2 translate>交易 <div class="jiantou" style="padding-top: 12px;">
-            <img src="images/you.png" width="30" alt="" data-ng-show="youShow" data-ng-click="lookTX('you')" data-ng-model="txdirection_you" class="youg">
-            <img src="images/you-g.png" width="30" alt=""  data-ng-show="!youShow" data-ng-click="lookTX('you-g')" class="you">
-            <img src="images/zuo.png" width="30" alt=""  data-ng-show="zuoShow" data-ng-click="lookTX('zuo')" data-ng-model="xdirection_zuo" class="zuog">
-            <img src="images/zuo-g.png" width="30" alt=""  data-ng-show="!zuoShow" data-ng-click="lookTX('zuo-g')" class="zuo">   
-        </div>
-            <div class="rrll">
-              <p class="lead text-center m20v">
-              <input data-ng-model="datevalaa" data-ng-show="false">
-              <input data-ng-model="datevalbb" data-ng-show="false">
-              <input class="rangeA" data-ng-model="datevala" class="btn btn-primary btn-xs" datepicker-popup show-button-bar="false" data-ng-click="openCalendara($event)" is-open="openeda" placeholder="年-月-日">
-              <span>--</span>
-               <input class="rangeA" data-ng-model="datevalb" class="btn btn-primary btn-xs" datepicker-popup show-button-bar="false" data-ng-click="openCalendarb($event)" is-open="openedb" placeholder="年-月-日">
-               <img class="dateimg" src="images/search.png" alt="" data-ng-click="searchByDate()" height="35">
-              </p>
-            <!--   <input type="text" class="range" data-ng-model="dateval"/>
-              <img class="dateimg" src="images/rili.png"  width="25" alt="">
-              <img class="dateimg" src="images/search.png" alt="" data-ng-click="searchByDate()" height="35"> -->
-            </div>
-            <span class="daochu" ng-csv="exceladdtxs" add-bom="true" csv-header="['交易哈希', '交易产生时间','转入金额','转出金额', '交易状态']" filename="{{address.addrStr}}_{{formatstime}}_{{formatetime}}_交易信息表_{{dateval}}.csv">导出</span></h2>
-    <div data-ng-include src="'views/transaction/list.html'" when-scrolled="loadMore()"></div>
-  </div>
-</section>
-
+  </section>
+</div>
