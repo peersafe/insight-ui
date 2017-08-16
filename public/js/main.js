@@ -426,7 +426,7 @@ angular.module('insight.blocks').controller('BlocksController',
       $scope.blocks = res.blocks;
       res.blocks.forEach(function(data){
           console.log(data)
-          $scope.excelblocks.push({height:data.height,time:_formatTime(new Date(data.time * 1000)),confirmations:data.txlength+"个确认数",poolInfo:data.poolInfo.poolName||"",size:data.size})
+          $scope.excelblocks.push({height:data.height,time:_formatTime(new Date(data.time * 1000)),confirmations:data.txlength,poolInfo:data.poolInfo.poolName||"",size:data.size})
       })
       $scope.pagination = res.pagination;
     });
@@ -719,12 +719,14 @@ var TRANSACTION_DISPLAYED = 6;
 var BLOCKS_DISPLAYED = 8;
 
 angular.module('insight.system').controller('IndexController',
-  function($scope, Global, getSocket, Blocks,Status,TransactionsByBlock/*,BlackByAddr*/) {
+  function($scope, Global, getSocket,Block, Blocks,Status,TransactionsByBlock/*,BlackByAddr*/) {
     $scope.global = Global;
     var blockHash =[];
     var number = 0;
-    var _getBlocks = function() {
+    var _getBlocks = function(date,startTimestamp) {
       Blocks.get({
+        blockDate:date,
+        startTimestamp:startTimestamp,
         limit: BLOCKS_DISPLAYED
       }, function(res) {
         $scope.blocks = res.blocks;
@@ -759,9 +761,35 @@ angular.module('insight.system').controller('IndexController',
         _getcurData();
       }
     }
+   var _formatTimestamp = function (date) {
+      var yyyy = date.getFullYear().toString();
+      var mm = (date.getMonth() + 1).toString(); // getMonth() is zero-based
+      var dd  = date.getDate().toString();
+
+      return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]); //padding
+    };
+    var _initData = function(){
+       Status.get({
+          q: 'getLastBlockHash'
+        },
+        function(d) {
+          console.log(d.lastblockhash);
+          _getBlockDateByHash(d.lastblockhash);
+        });
+    }
+    var _getBlockDateByHash = function (blockhash) {
+          Block.get({
+              blockHash:blockhash
+          },function(data){
+              var date = _formatTimestamp(new Date((data.time-86400)*1000));
+              _getBlocks(date,data.time);
+          })
+
+    }
 
 
     var _startSocket = function() { 
+     
 
       //_getcurData();
      /* socket.emit('subscribe', 'inv');
@@ -789,7 +817,8 @@ angular.module('insight.system').controller('IndexController',
     };
 
     $scope.index = function() {
-      _getBlocks();
+      //_getBlocks();
+       _initData();
       _startSocket();
     };
 
@@ -1159,7 +1188,7 @@ angular.module('insight.status').controller('StatusController',
 
 // Source: public/src/js/controllers/transactions.js
 angular.module('insight.transactions',['ngSanitize', 'ngCsv']).controller('transactionsController',
-function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,BlacklistService,Address) {
+function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,Block,BlacklistService,Address,Status) {
   $scope.global = Global;
   $scope.loading = false;
   $scope.loadedBy = null;
@@ -1502,19 +1531,14 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
     }
   };
 
+ 
+
   $scope.htxs= [];
   $scope.excelhtxs=[];
   var curHeight = 0;
   $scope.iscurheight = true;
   $scope.initLoadTXByheight = function() {
-      Blocks.get({
-        limit: 1
-      }, function(res) {
-        $scope.blockhash = res.blocks[0].hash;
-        curHeight = res.blocks[0].height;
-        $scope.blockHeight = curHeight;
-        _getcurData();
-      });
+      _initData();
   };
    //Load transactions for pagination
   $scope.loadTXByheight = function() {
@@ -1534,7 +1558,28 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
           _getcurData();
       })
   };
- 
+ var _initData = function(){
+       Status.get({
+          q: 'getLastBlockHash'
+        },
+        function(d) {
+          console.log(d.lastblockhash);
+          _getBlockDateByHash(d.lastblockhash);
+        });
+    }
+  var _getBlockDateByHash = function (blockhash) {
+          Block.get({
+              blockHash:blockhash
+          },function(data){
+
+              $scope.blockhash = blockhash;
+              curHeight = data.height;
+              $scope.blockHeight = curHeight;
+              _getcurData();
+          })
+
+    }
+
   var _getcurData = function(){
      var hash = $scope.blockhash;
      console.log(hash);

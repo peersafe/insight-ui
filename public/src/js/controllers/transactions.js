@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.transactions',['ngSanitize', 'ngCsv']).controller('transactionsController',
-function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,BlacklistService,Address) {
+function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,Block,BlacklistService,Address,Status) {
   $scope.global = Global;
   $scope.loading = false;
   $scope.loadedBy = null;
@@ -344,19 +344,14 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
     }
   };
 
+ 
+
   $scope.htxs= [];
   $scope.excelhtxs=[];
   var curHeight = 0;
   $scope.iscurheight = true;
   $scope.initLoadTXByheight = function() {
-      Blocks.get({
-        limit: 1
-      }, function(res) {
-        $scope.blockhash = res.blocks[0].hash;
-        curHeight = res.blocks[0].height;
-        $scope.blockHeight = curHeight;
-        _getcurData();
-      });
+      _initData();
   };
    //Load transactions for pagination
   $scope.loadTXByheight = function() {
@@ -376,7 +371,28 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
           _getcurData();
       })
   };
- 
+ var _initData = function(){
+       Status.get({
+          q: 'getLastBlockHash'
+        },
+        function(d) {
+          console.log(d.lastblockhash);
+          _getBlockDateByHash(d.lastblockhash);
+        });
+    }
+  var _getBlockDateByHash = function (blockhash) {
+          Block.get({
+              blockHash:blockhash
+          },function(data){
+
+              $scope.blockhash = blockhash;
+              curHeight = data.height;
+              $scope.blockHeight = curHeight;
+              _getcurData();
+          })
+
+    }
+
   var _getcurData = function(){
      var hash = $scope.blockhash;
      console.log(hash);
