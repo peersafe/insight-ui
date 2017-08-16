@@ -130,7 +130,7 @@ angular.element(document).ready(function() {
     }
   }])
   .controller('AppCtrl', ["$scope", function AppCtrl($scope) {
-    $scope.theme = store.get('theme') || Options.theme || 'dark'
+    $scope.theme = 'dark';
     $scope.$watch('theme', function() {
       store.set('theme', $scope.theme)
     })
