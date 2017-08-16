@@ -127,7 +127,7 @@ msgstr "连接数"
 
 #: public/views/status.html
 msgid "Connections to other nodes"
-msgstr "连接到其他节点"
+msgstr "节点连接数"
 
 #: public/views/status.html
 msgid "Current Blockchain Tip (insight)"
@@ -200,7 +200,7 @@ msgstr "错误信息"
 
 #: public/views/status.html
 msgid "Initial Block Chain Height"
-msgstr "初始区块高度"
+msgstr "区块高度"
 
 #: public/views/transaction.html
 msgid "Input"
