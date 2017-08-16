@@ -556,6 +556,7 @@ margin-left: 0;
 }
 
 .btn-copy {
+  display: none;
   background: transparent url('../img/icons/copy.png') center center no-repeat;
 }
 
@@ -858,6 +859,16 @@ a.v_highlight_more {
   }
 }
 .block_height{width: 150px;margin-left: 35px;margin-top: 50px;}
+.confirmate{
+    margin-left: 40%;
+    background: #30bfa1;
+    width: 70px;
+    height: 50px;
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+}
 
 /*body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0;}
 body{font:14px"微软雅黑";background:#f5f4f9;-webkit-text-size-adjust:100%; color: #666;background: #fff;overflow-x: hidden;position: relative;}
