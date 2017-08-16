@@ -1,13 +1,15 @@
 'use strict';
 
 angular.module('insight.history').controller('HistoryController',
-  function ($scope, $rootScope, $routeParams, HistoryService) {
-    console.log("historys controller start");
+  function ($scope, $rootScope, $routeParams, HistoryService, locals) {
+    $scope.isLogin = locals.get('isLogin')
+
+    //Datepicker
+    console.log("historys controller start",$scope.isLogin);
 
 
-      //Datepicker
       var _formatTimestamp = function (date) {
-          var yyyy = date.getUTCFullYear().toString();
+        var yyyy = date.getUTCFullYear().toString();
           var mm = (date.getUTCMonth() + 1).toString(); // getMonth() is zero-based
           var dd  = date.getUTCDate().toString();
 

@@ -284,30 +284,32 @@ networkGraph = function (nameService) {
     //
     // addConnections(account, trustlines);
       api.getBitTx(account, function (err,data1) {
+        if (!!data1 && !!data1.txs) {
           data1.txs.forEach(function (tx) {
             if(JSON.stringify(tx.vin).indexOf(account) != -1){
               tx.vout.forEach(function (d) {
-                  trustlines.push({
-                      account: d.scriptPubKey.addresses[0],
-                      balance: 0,
-                      currency: '',
-                      limit: 10,
-                      limit_peer: 10
-                  });
+                trustlines.push({
+                  account: d.scriptPubKey.addresses[0],
+                  balance: 0,
+                  currency: '',
+                  limit: 10,
+                  limit_peer: 10
+                });
               })
             }else{
-                tx.vin.forEach(function (d) {
-                    trustlines.push({
-                        account: d.addr,
-                        balance: 0,
-                        currency: '',
-                        limit: 10,
-                        limit_peer: 10
-                    });
-                })
+              tx.vin.forEach(function (d) {
+                trustlines.push({
+                  account: d.addr,
+                  balance: 0,
+                  currency: '',
+                  limit: 10,
+                  limit_peer: 10
+                });
+              })
             }
           })
           addConnections(account, trustlines);
+        }
       })
   }
 

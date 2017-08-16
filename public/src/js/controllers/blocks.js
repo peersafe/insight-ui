@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('insight.blocks').controller('BlocksController',
-  function($scope, $rootScope, $routeParams, $location, Global, Block, Blocks, BlockByHeight) {
+  function($scope, $rootScope, $routeParams, $location, Global, Block, Blocks, BlockByHeight, locals) {
   $scope.global = Global;
+  $scope.isLogin = locals.get('isLogin');
   $scope.loading = false;
   $scope.excelblocks = [];
 

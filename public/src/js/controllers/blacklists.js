@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('insight.blacklists').controller('BlacklistsController',
-  function ($scope, $rootScope, $routeParams, $http, Service, BlacklistService) {
+  function ($scope, $rootScope, $routeParams, $http, Service, BlacklistService, locals) {
     // $scope.global = Global;
     // $scope.loading = false;
 
     console.log("blacklists controller start");
+
+    $scope.isLogin = locals.get('isLogin');
 
     // $scope.blacklists = BlacklistService.list();
     $scope.list = function () {

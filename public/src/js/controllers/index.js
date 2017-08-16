@@ -4,8 +4,11 @@ var TRANSACTION_DISPLAYED = 6;
 var BLOCKS_DISPLAYED = 8;
 
 angular.module('insight.system').controller('IndexController',
-  function($scope, Global, getSocket,Block, Blocks,Status,TransactionsByBlock/*,BlackByAddr*/) {
+  function($scope, Global, getSocket,Block, Blocks,Status,TransactionsByBlock,locals/*,BlackByAddr*/) {
     $scope.global = Global;
+    $scope.isLogin = locals.get('isLogin');
+    console.log("index controller start",$scope.isLogin);
+
     var blockHash =[];
     var number = 0;
     var _getBlocks = function(date,startTimestamp) {
