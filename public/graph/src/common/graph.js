@@ -287,23 +287,27 @@ networkGraph = function (nameService) {
           data1.txs.forEach(function (tx) {
             if(JSON.stringify(tx.vin).indexOf(account) != -1){
               tx.vout.forEach(function (d) {
-                  trustlines.push({
-                      account: d.scriptPubKey.addresses[0],
-                      balance: 0,
-                      currency: '',
-                      limit: 10,
-                      limit_peer: 10
-                  });
-              })
-            }else{
-                tx.vin.forEach(function (d) {
+                if(d.scriptPubKey.addresses && d.scriptPubKey.addresses[0]){
                     trustlines.push({
-                        account: d.addr,
+                        account: d.scriptPubKey.addresses[0],
                         balance: 0,
                         currency: '',
                         limit: 10,
                         limit_peer: 10
                     });
+                }
+              })
+            }else{
+                tx.vin.forEach(function (d) {
+                    if(d.addr) {
+                        trustlines.push({
+                            account: d.addr,
+                            balance: 0,
+                            currency: '',
+                            limit: 10,
+                            limit_peer: 10
+                        });
+                    }
                 })
             }
           })
