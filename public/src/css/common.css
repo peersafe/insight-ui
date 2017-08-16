@@ -851,3 +851,13 @@ a.v_highlight_more {
   }
 }
 .block_height{width: 150px;margin-left: 35px;margin-top: 50px;}
+.confirmate{
+    margin-left: 40%;
+    background: #30bfa1;
+    width: 70px;
+    height: 50px;
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+}
