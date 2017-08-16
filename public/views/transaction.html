@@ -46,6 +46,7 @@
           <strong translate>Transaction</strong>
           <span class="txid text-muted">{{tx.txid}}</span>
           <span class="btn-copy" clip-copy="tx.txid"></span>
+          <span class="confirmate" data-ng-show="tx.confirmations">已确认</span>
         </div>
         <h2 translate>Summary</h2>
         <table class="table" style="table-layout: fixed">
