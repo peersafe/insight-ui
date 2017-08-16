@@ -10,21 +10,25 @@ angular.module('insight.login').controller('loginController',
     //依赖注入的内容 作用域 本地 账户信息 弹出提示 状态值
     $scope.login = function () {
 
-      $scope.invalid_account = false;
-      $scope.password_error = false;
+      $scope.verifyError = "";
+      $scope.accountError = "";
+      $scope.passwordError = "";
 
       console.log('login user info:', $scope.user.name, $scope.user.password);
+      if(!$scope.user.name){
+        $scope.accountError = "请填写账号"
+      }
+      if(!$scope.user.password){
+        $scope.passwordError = "请填写密码"
+      }
       if ($scope.user && $scope.user.name && $scope.user.password) {
         Account.get({
           name: $scope.user.name,
           password: $scope.user.password
         }, function(res) {
           console.log('res',res)
-          if (res.code === -101) {
-            $scope.invalid_account = true;
-          }
-          if (res.code === -102) {
-            $scope.password_error = true;
+          if (res.code != 0) {
+            $scope.verifyError = "账号或密码错误";
           }
           $rootScope.isLogin = res.code === 0;
           if ($rootScope.isLogin) {

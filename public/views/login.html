@@ -7,12 +7,13 @@
 		<img src="images/login-bg.png" alt="" width="600">
 		<form class="form1">
 			<div class="login-col">
+                                <span style="color:red">{{verifyError}}</span>
 				<input type="text" class="lin" placeholder="账号" data-ng-model="user.name">
-				<span data-ng-show="invalid_account">账号不存在</span>
+				<span style="color:red">{{accountError}}</span>
 			</div>
 			<div class="login-col">
 				<input type="password" class="lin" placeholder="密码" data-ng-model="user.password">
-				<span data-ng-show="password_error">密码错误</span>
+				<span style="color:red">{{passwordError}}</span>
 			</div>
 			<div class="lo-btn">
 				<button data-ng-click="login()" class="ddlu">登 录</button>
