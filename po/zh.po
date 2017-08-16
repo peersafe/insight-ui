@@ -76,7 +76,7 @@ msgstr "Bitcoin可以签名任意消息"
 
 #: public/views/status.html
 msgid "Bitcoin node information"
-msgstr "Bitcoin 节点信息"
+msgstr "比特币节点信息"
 
 #: public/views/block.html
 msgid "Block"
@@ -90,6 +90,10 @@ msgstr "块报酬"
 #: public/views/status.html
 msgid "Blocks"
 msgstr "区块"
+
+#: public/views/status.html
+msgid "Blocks Num"
+msgstr "区块数"
 
 #: public/views/transaction_sendraw.html
 msgid "Broadcast Raw Transaction"
@@ -127,11 +131,11 @@ msgstr "连接数"
 
 #: public/views/status.html
 msgid "Connections to other nodes"
-msgstr "连接到其他节点"
+msgstr "连接数"
 
 #: public/views/status.html
 msgid "Current Blockchain Tip (insight)"
-msgstr "当前链提示"
+msgstr "当前区块链Tip(insight)"
 
 #: public/views/status.html
 msgid "Current Sync Status"
@@ -200,7 +204,7 @@ msgstr "错误信息"
 
 #: public/views/status.html
 msgid "Initial Block Chain Height"
-msgstr "初始区块高度"
+msgstr "最新区块高度"
 
 #: public/views/transaction.html
 msgid "Input"
@@ -208,11 +212,11 @@ msgstr "输入"
 
 #: public/views/status.html
 msgid "Last Block"
-msgstr "上一个区块"
+msgstr "最新区块信息"
 
 #: public/views/status.html
 msgid "Last Block Hash (Bitcoind)"
-msgstr "上一个区块Hash(Bitcoind)"
+msgstr "最新区块哈希(Bitcoind)"
 
 #: public/views/index.html
 msgid "Latest Blocks"
@@ -374,7 +378,7 @@ msgstr "大小(字节)"
 
 #: public/views/status.html
 msgid "Skipped Blocks (previously synced)"
-msgstr "跳过区块(此前同步过)"
+msgstr "已跳过块数量"
 
 #: public/views/status.html
 msgid "Start Date"
@@ -402,11 +406,11 @@ msgstr "同步状态"
 
 #: public/views/status.html
 msgid "Sync Type"
-msgstr "同步类别"
+msgstr "同步类型"
 
 #: public/views/status.html
 msgid "Synced Blocks"
-msgstr "同步区块数目"
+msgstr "已同步块数量"
 
 #: public/views/status.html
 msgid "Testnet"
@@ -464,6 +468,10 @@ msgstr "发送总数"
 msgid "Transaction"
 msgstr "交易"
 
+#: public/views/transaction.html
+msgid "Transaction Hash"
+msgstr "交易哈希"
+
 #: public/views/status.html
 msgid "Transaction Output Set Information"
 msgstr "交易输出集合信息"
@@ -487,7 +495,7 @@ msgstr "类别"
 
 #: public/views/address.html
 msgid "Unconfirmed"
-msgstr "未验证"
+msgstr "未确认"
 
 #: public/views/transaction.html public/views/transaction/tx.html
 msgid "Unconfirmed Transaction!"
