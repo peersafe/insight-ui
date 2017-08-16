@@ -15,6 +15,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   var pagesTotal = 1;
   var COIN = 100000000;
   var isHome=false;
+
  
    //Datepicker
   var _formatTimestamp = function (date) {
@@ -41,6 +42,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
   var _blackAddr = function(){
       var addr = $scope.searchAddr;
+      $scope.blackaddr="";
       BlacklistService.get({}, function (res) {
         var data = res.data;
          for(var i in data){
