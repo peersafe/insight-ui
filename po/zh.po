@@ -186,13 +186,13 @@ msgstr "Hash序列化"
 msgid "Height"
 msgstr "高度"
 
-#public/views/index.html
+#: public/views/index.html
 msgid "BlockHeight"
 msgstr "区块高度"
 
 #: public/views/transaction.html public/views/transaction/tx.html
 msgid "Included in Block"
-msgstr "在区块中"
+msgstr "所在区块"
 
 #: public/views/transaction/tx.html
 msgid "Incoherence in levelDB detected:"
@@ -333,11 +333,11 @@ msgstr "查询区块高度、区块哈希、交易哈希或地址"
 
 #: public/views/index.html
 msgid "See all blocks"
-msgstr "参考所有区块"
+msgstr "查看所有区块"
 
 #: public/views/index.html
 msgid "See all transcations"
-msgstr "参考所有交易"
+msgstr "查看所有交易"
 
 #: public/views/transaction_sendraw.html
 msgid "Send transaction"
