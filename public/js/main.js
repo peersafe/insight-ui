@@ -116,6 +116,9 @@ angular.module('insight.blacklists').controller('BlacklistsController',
       BlacklistService.get({}, function (res) {
         console.log('res', res)
         if (res.code === 0) {
+          for (var i in res.data) {
+            res.data[i].nm_cmt = res.data[i].addr + res.data[i].comment;
+          }
           $scope.blacklists = res.data;
         }
       });
