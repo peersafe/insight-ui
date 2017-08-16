@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.blocks').controller('BlocksController',
-  function($scope, $rootScope, $routeParams, $location, Global, Block, Blocks, BlockByHeight) {
+  function($scope, $rootScope, $routeParams, $location, Global, Block,Status, Blocks, BlockByHeight) {
   $scope.global = Global;
   $scope.loading = false;
   $scope.excelblocks = [];
@@ -59,35 +59,51 @@ angular.module('insight.blocks').controller('BlocksController',
     return m.max().from(b);
   };
 
-
+ 
   $scope.list = function() {
     $scope.loading = true;
+    var searchDate = $routeParams.blockDate;
 
-    if ($routeParams.blockDate) {
-      $scope.detail = 'On ' + $routeParams.blockDate;
-    }
+     Status.get({
+          q: 'getLastBlockHash'
+        },
+        function(d) {
+          
+            Block.get({
+              blockHash:d.lastblockhash
+          },function(data){
+              var date = _formatTimestamp(new Date((data.time-86400)*1000));
+             
+              if(!searchDate){
+                   searchDate = date;
+              }
+              if ($routeParams.blockDate) {
+                $scope.detail = 'On ' + searchDate;
+              }
 
-    if ($routeParams.startTimestamp) {
-      var d=new Date($routeParams.startTimestamp*1000);
-      var m=d.getMinutes();
-      if (m<10) m = '0' + m;
-      $scope.before = ' before ' + d.getHours() + ':' + m;
-    }
+              if ($routeParams.startTimestamp) {
+                var d=new Date($routeParams.startTimestamp*1000);
+                var m=d.getMinutes();
+                if (m<10) m = '0' + m;
+                $scope.before = ' before ' + d.getHours() + ':' + m;
+              }
 
-    $rootScope.titleDetail = $scope.detail;
+              $rootScope.titleDetail = $scope.detail;
 
-    Blocks.get({
-      blockDate: $routeParams.blockDate,
-      startTimestamp: $routeParams.startTimestamp
-    }, function(res) {
-      $scope.loading = false;
-      $scope.blocks = res.blocks;
-      res.blocks.forEach(function(data){
-          console.log(data)
-          $scope.excelblocks.push({height:data.height,time:_formatTime(new Date(data.time * 1000)),confirmations:data.txlength + "个确认数",poolInfo:data.poolInfo.poolName||"",size:data.size})
-      })
-      $scope.pagination = res.pagination;
-    });
+              Blocks.get({
+                blockDate: searchDate,
+                startTimestamp: $routeParams.startTimestamp
+              }, function(res) {
+                $scope.loading = false;
+                $scope.blocks = res.blocks;
+                res.blocks.forEach(function(data){
+                    $scope.excelblocks.push({height:data.height,time:_formatTime(new Date(data.time * 1000)),confirmations:data.txlength + "个确认数",poolInfo:data.poolInfo.poolName||"",size:data.size})
+                })
+                $scope.pagination = res.pagination;
+              });
+          })
+      });
+
   };
 
   $scope.findOne = function() {
