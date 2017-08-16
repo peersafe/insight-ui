@@ -84,7 +84,7 @@ angular.module('insight.blocks').controller('BlocksController',
       $scope.blocks = res.blocks;
       res.blocks.forEach(function(data){
           console.log(data)
-          $scope.excelblocks.push({height:data.height,time:_formatTime(new Date(data.time * 1000)),confirmations:data.txlength,poolInfo:data.poolInfo.poolName||"",size:data.size})
+          $scope.excelblocks.push({height:data.height,time:_formatTime(new Date(data.time * 1000)),confirmations:data.txlength + "个确认数",poolInfo:data.poolInfo.poolName||"",size:data.size})
       })
       $scope.pagination = res.pagination;
     });
