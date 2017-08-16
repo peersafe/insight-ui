@@ -785,7 +785,7 @@ angular.module('insight.system').controller('IndexController',
               blockHash:blockhash
           },function(data){
               var date = _formatTimestamp(new Date((data.time-86400)*1000));
-              _getBlocks(date,data.time);
+              _getBlocks(date,data.time+1);
           })
 
     }
