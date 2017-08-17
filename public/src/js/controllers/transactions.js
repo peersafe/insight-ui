@@ -7,6 +7,12 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   $scope.loadedBy = null;
   $scope.youShow=true;
   $scope.zuoShow=true;
+  $scope.$on('isLogin', function(d, data) {
+    if (data === true) {
+      $scope.isLogin = locals.get('isLogin');
+      console.log('HOME.isLogin=',$scope.isLogin)
+    }
+  });
   $scope.isLogin=locals.get('isLogin');
   console.log('home.islogin=',$scope.isLogin)
   console.log("transaction controller start",$scope.isLogin);
