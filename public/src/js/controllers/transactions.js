@@ -9,7 +9,6 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   $scope.zuoShow=true;
   var txdirection_you=true;
   var txdirection_zuo=true;
-  $scope.searchAddr="mjAFPh7F15o3BrAXbqZgUtUj6zjnKMWMhu";
 
   var pageNum = 0;
   var pagesTotal = 1;
