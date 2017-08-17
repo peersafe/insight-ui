@@ -105,7 +105,23 @@ angular.module('insight.address').controller('AddressController',
   });
 
 // Source: public/src/js/controllers/blacklists.js
-angular.module('insight.blacklists').controller('BlacklistsController',
+angular.module('insight.blacklists')
+.config(['$httpProvider', function($httpProvider) {
+    //initialize get if not there
+    if (!$httpProvider.defaults.headers.get) {
+        $httpProvider.defaults.headers.get = {};
+    }
+
+    // Answer edited to include suggestions from comments
+    // because previous version of code introduced browser-related errors
+
+    //disable IE ajax request caching
+    $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Mon, 26 Jul 1997 05:00:00 GMT';
+    // extra
+    $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
+    $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
+}])
+    .controller('BlacklistsController',
   function ($scope, $rootScope, $routeParams, $http, Service, BlacklistService, locals) {
     // $scope.global = Global;
     // $scope.loading = false;
@@ -1289,7 +1305,6 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   $scope.etime = Math.round((new Date(_formatTimestamp(new Date()) +" 23:59:59")).getTime()/1000);*/
 
   $scope.searchByAddr = function(){
-    $scope.searchAddr = $scope.searchAddr;
       isHome=true;
       $scope.txs=[];
       pageNum = 0;
@@ -1298,7 +1313,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   }
 
   var _blackAddr = function(){
-      var addr = $scope.searchAddr;
+      var addr = $scope.$$childHead.searchAddr;
       $scope.blackaddr="";
       BlacklistService.get({}, function (res) {
         var data = res.data;
@@ -1539,7 +1554,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   var _byAddress = function () {
     var address = $routeParams.addrStr;
     if(address===undefined){
-      address = $scope.searchAddr;
+      address = $scope.$$childHead.searchAddr;
     }
     TransactionsByAddress.get({
       address: address,

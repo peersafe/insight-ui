@@ -41,7 +41,6 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   $scope.etime = Math.round((new Date(_formatTimestamp(new Date()) +" 23:59:59")).getTime()/1000);*/
 
   $scope.searchByAddr = function(){
-    $scope.searchAddr = $scope.searchAddr;
       isHome=true;
       $scope.txs=[];
       pageNum = 0;
@@ -50,7 +49,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   }
 
   var _blackAddr = function(){
-      var addr = $scope.searchAddr;
+      var addr = $scope.$$childHead.searchAddr;
       $scope.blackaddr="";
       BlacklistService.get({}, function (res) {
         var data = res.data;
@@ -291,7 +290,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   var _byAddress = function () {
     var address = $routeParams.addrStr;
     if(address===undefined){
-      address = $scope.searchAddr;
+      address = $scope.$$childHead.searchAddr;
     }
     TransactionsByAddress.get({
       address: address,
