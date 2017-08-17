@@ -105,7 +105,23 @@ angular.module('insight.address').controller('AddressController',
   });
 
 // Source: public/src/js/controllers/blacklists.js
-angular.module('insight.blacklists').controller('BlacklistsController',
+angular.module('insight.blacklists')
+.config(['$httpProvider', function($httpProvider) {
+    //initialize get if not there
+    if (!$httpProvider.defaults.headers.get) {
+        $httpProvider.defaults.headers.get = {};
+    }
+
+    // Answer edited to include suggestions from comments
+    // because previous version of code introduced browser-related errors
+
+    //disable IE ajax request caching
+    $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Mon, 26 Jul 1997 05:00:00 GMT';
+    // extra
+    $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
+    $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
+}])
+    .controller('BlacklistsController',
   function ($scope, $rootScope, $routeParams, $http, Service, BlacklistService, locals) {
     // $scope.global = Global;
     // $scope.loading = false;
@@ -649,6 +665,20 @@ angular.module('insight.system').controller('HeaderController',
     $scope.global = Global;
     $scope.isLogin = locals.get('isLogin');
 
+    $scope.$on('isLogin', function(d, data) {
+      if (data === true) {
+        $scope.isLogin = locals.get('isLogin');
+        console.log('HEADER.isLogin=',$scope.isLogin)
+      }
+    });
+    // $scope.$on('loginpage', function(d, data) {
+    //   if (data === true) {
+    //     $scope.isLogin = false;
+    //     console.log('HEADER.loginpage.isLogin=',$scope.isLogin)
+    //   }
+    // });
+    console.log('header.isLogin=',$scope.isLogin)
+
     $rootScope.currency = {
       factor: 1,
       bitstamp: 0,
@@ -745,11 +775,14 @@ var TRANSACTION_DISPLAYED = 6;
 var BLOCKS_DISPLAYED = 8;
 
 angular.module('insight.system').controller('IndexController',
-  function($scope, Global, getSocket,Block, Blocks,Status,TransactionsByBlock,locals/*,BlackByAddr*/) {
+  function($scope, $rootScope, Global, getSocket,Block, Blocks,Status,TransactionsByBlock,locals,$timeout/*,BlackByAddr*/) {
     $scope.global = Global;
     $scope.isLogin = locals.get('isLogin');
     console.log("index controller start",$scope.isLogin);
 
+    if ($rootScope.flashMessage) {
+      $timeout(function(){$rootScope.flashMessage=null}, 2000);
+    }
     var blockHash =[];
     var number = 0;
     var _getBlocks = function(date,startTimestamp) {
@@ -861,13 +894,13 @@ angular.module('insight.login').controller('loginController',
     $scope.isLogin = locals.get('isLogin');
     console.log('$routeParams=',$routeParams)
     console.log('login.isLogin=',$scope.isLogin)
-
+    // $scope.$emit('loginpage', true)
 
 
     //依赖注入的内容 作用域 本地 账户信息 弹出提示 状态值
     $scope.login = function () {
 
-      $scope.verifyError = "";
+      // $scope.verifyError = "";
       $scope.accountError = "";
       $scope.passwordError = "";
 
@@ -884,16 +917,22 @@ angular.module('insight.login').controller('loginController',
           password: $scope.user.password
         }, function(res) {
           // console.log('res',res)
-          if (res.code != 0) {
-            $scope.verifyError = "账号或密码错误";
+          if (res.code === -101) {
+            $scope.accountError = "账号不存在"
+            $scope.passwordError = ""
             $scope.user.name = '';
+          } else if (res.code === -102) {
+            $scope.accountError = ""
+            $scope.passwordError = "密码错误"
             $scope.user.password = '';
-          } else {
+          } else if (res.code === 0) {
             //存储数据
             locals.set("isLogin", true);
             //读取数据
             console.log('local:islogin ===',locals.get("isLogin"));
             $location.path('/home');
+            $scope.$emit('isLogin', true);
+            $scope.isLogin = true;
           }
 
         });
@@ -1232,6 +1271,18 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   $scope.loadedBy = null;
   $scope.youShow=true;
   $scope.zuoShow=true;
+
+  $scope.$on('isLogin', function(d, data) {
+    if (data === true) {
+      $scope.isLogin = locals.get('isLogin');
+      console.log('HOME.isLogin=',$scope.isLogin)
+    }
+  });
+  $scope.isLogin=locals.get('isLogin');
+  console.log('home.islogin=',$scope.isLogin)
+  console.log("transaction controller start",$scope.isLogin);
+
+
   var txdirection_you=true;
   var txdirection_zuo=true;
 
@@ -1258,7 +1309,6 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   $scope.dateval= _formatTimestamp(new Date())
 
   $scope.searchByAddr = function(){
-      $scope.blackaddr="";
       isHome=true;
       $scope.txs=[];
       pageNum = 0;
@@ -1267,8 +1317,8 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   }
 
   var _blackAddr = function(){
-      var addr = $scope.searchAddr;
-
+      var addr = $scope.$$childHead.searchAddr;
+      $scope.blackaddr="";
       BlacklistService.get({}, function (res) {
         var data = res.data;
          for(var i in data){
@@ -1509,7 +1559,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   var _byAddress = function () {
     var address = $routeParams.addrStr;
     if(address===undefined){
-      address = $scope.searchAddr;
+      address = $scope.$$childHead.searchAddr;
     }
     TransactionsByAddress.get({
       address: address,

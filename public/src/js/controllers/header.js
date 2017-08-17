@@ -5,6 +5,20 @@ angular.module('insight.system').controller('HeaderController',
     $scope.global = Global;
     $scope.isLogin = locals.get('isLogin');
 
+    $scope.$on('isLogin', function(d, data) {
+      if (data === true) {
+        $scope.isLogin = locals.get('isLogin');
+        console.log('HEADER.isLogin=',$scope.isLogin)
+      }
+    });
+    // $scope.$on('loginpage', function(d, data) {
+    //   if (data === true) {
+    //     $scope.isLogin = false;
+    //     console.log('HEADER.loginpage.isLogin=',$scope.isLogin)
+    //   }
+    // });
+    console.log('header.isLogin=',$scope.isLogin)
+
     $rootScope.currency = {
       factor: 1,
       bitstamp: 0,

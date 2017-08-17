@@ -7,6 +7,18 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   $scope.loadedBy = null;
   $scope.youShow=true;
   $scope.zuoShow=true;
+
+  $scope.$on('isLogin', function(d, data) {
+    if (data === true) {
+      $scope.isLogin = locals.get('isLogin');
+      console.log('HOME.isLogin=',$scope.isLogin)
+    }
+  });
+  $scope.isLogin=locals.get('isLogin');
+  console.log('home.islogin=',$scope.isLogin)
+  console.log("transaction controller start",$scope.isLogin);
+
+
   var txdirection_you=true;
   var txdirection_zuo=true;
 
@@ -33,7 +45,6 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   $scope.dateval= _formatTimestamp(new Date())
 
   $scope.searchByAddr = function(){
-      $scope.blackaddr="";
       isHome=true;
       $scope.txs=[];
       pageNum = 0;
@@ -42,8 +53,8 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   }
 
   var _blackAddr = function(){
-      var addr = $scope.searchAddr;
-
+      var addr = $scope.$$childHead.searchAddr;
+      $scope.blackaddr="";
       BlacklistService.get({}, function (res) {
         var data = res.data;
          for(var i in data){
@@ -284,7 +295,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   var _byAddress = function () {
     var address = $routeParams.addrStr;
     if(address===undefined){
-      address = $scope.searchAddr;
+      address = $scope.$$childHead.searchAddr;
     }
     TransactionsByAddress.get({
       address: address,

@@ -5,13 +5,13 @@ angular.module('insight.login').controller('loginController',
     $scope.isLogin = locals.get('isLogin');
     console.log('$routeParams=',$routeParams)
     console.log('login.isLogin=',$scope.isLogin)
-
+    // $scope.$emit('loginpage', true)
 
 
     //依赖注入的内容 作用域 本地 账户信息 弹出提示 状态值
     $scope.login = function () {
 
-      $scope.verifyError = "";
+      // $scope.verifyError = "";
       $scope.accountError = "";
       $scope.passwordError = "";
 
@@ -28,16 +28,22 @@ angular.module('insight.login').controller('loginController',
           password: $scope.user.password
         }, function(res) {
           // console.log('res',res)
-          if (res.code != 0) {
-            $scope.verifyError = "账号或密码错误";
+          if (res.code === -101) {
+            $scope.accountError = "账号不存在"
+            $scope.passwordError = ""
             $scope.user.name = '';
+          } else if (res.code === -102) {
+            $scope.accountError = ""
+            $scope.passwordError = "密码错误"
             $scope.user.password = '';
-          } else {
+          } else if (res.code === 0) {
             //存储数据
             locals.set("isLogin", true);
             //读取数据
             console.log('local:islogin ===',locals.get("isLogin"));
             $location.path('/home');
+            $scope.$emit('isLogin', true);
+            $scope.isLogin = true;
           }
 
         });
