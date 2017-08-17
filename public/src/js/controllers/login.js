@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('insight.login').controller('loginController',
-  function ($scope, $rootScope, $routeParams, $location, Account) {
+  function ($scope, $rootScope, $routeParams, $location, Account, locals) {
+    $scope.isLogin = locals.get('isLogin');
     console.log('$routeParams=',$routeParams)
-    $scope.isLogin = function () {
-      console.log('insight.logi loginController isLogin:', $rootScope.isLogin);
-      return $rootScope.isLogin;
-    }
+    console.log('login.isLogin=',$scope.isLogin)
+
+
+
     //依赖注入的内容 作用域 本地 账户信息 弹出提示 状态值
     $scope.login = function () {
 
@@ -14,7 +15,7 @@ angular.module('insight.login').controller('loginController',
       $scope.accountError = "";
       $scope.passwordError = "";
 
-      console.log('login user info:', $scope.user.name, $scope.user.password);
+      // console.log('login user info:', $scope.user.name, $scope.user.password);
       if(!$scope.user.name){
         $scope.accountError = "请填写账号"
       }
@@ -26,17 +27,19 @@ angular.module('insight.login').controller('loginController',
           name: $scope.user.name,
           password: $scope.user.password
         }, function(res) {
-          console.log('res',res)
+          // console.log('res',res)
           if (res.code != 0) {
             $scope.verifyError = "账号或密码错误";
-          }
-          $rootScope.isLogin = res.code === 0;
-          if ($rootScope.isLogin) {
-            $location.path('/home');
-          } else {
             $scope.user.name = '';
             $scope.user.password = '';
+          } else {
+            //存储数据
+            locals.set("isLogin", true);
+            //读取数据
+            console.log('local:islogin ===',locals.get("isLogin"));
+            $location.path('/home');
           }
+
         });
 
       }

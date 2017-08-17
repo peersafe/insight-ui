@@ -1,12 +1,16 @@
 'use strict';
 
 angular.module('insight.transactions',['ngSanitize', 'ngCsv']).controller('transactionsController',
-function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,Block,BlacklistService,Address,Status) {
+function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,Block,BlacklistService,Address,Status,locals) {
   $scope.global = Global;
   $scope.loading = false;
   $scope.loadedBy = null;
   $scope.youShow=true;
   $scope.zuoShow=true;
+  $scope.isLogin=locals.get('isLogin');
+  console.log('home.islogin=',$scope.isLogin)
+  console.log("transaction controller start",$scope.isLogin);
+
   var txdirection_you=true;
   var txdirection_zuo=true;
 

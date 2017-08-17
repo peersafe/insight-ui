@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('insight.system').controller('HeaderController',
-  function($scope, $rootScope, $modal, getSocket, Global, Block) {
+  function($scope, $rootScope, $modal, getSocket, Global, Block, locals) {
     $scope.global = Global;
+    $scope.isLogin = locals.get('isLogin');
 
     $rootScope.currency = {
       factor: 1,

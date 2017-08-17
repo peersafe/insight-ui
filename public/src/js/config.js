@@ -3,7 +3,7 @@
 //Setting up route
 angular.module('insight').config(function($routeProvider) {
   $routeProvider.
-   when('/home', {
+    when('/home', {
       templateUrl: 'views/home.html',
       title: 'Home'
     }).
@@ -24,8 +24,8 @@ angular.module('insight').config(function($routeProvider) {
       title: 'Bitcoin Transaction '
     }).
     when('/', {
-      templateUrl: 'views/login.html',
-      title: 'Login'
+      templateUrl: 'views/home.html',
+      title: 'Home'
     }).
     when('/blocks', {
       templateUrl: 'views/block_list.html',
