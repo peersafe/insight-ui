@@ -5,8 +5,8 @@ networkGraph = function (nameService) {
   var UNIX_RIPPLE_TIME = 946684800;
   var RECURSION_DEPTH = 1;
   var MAX_NUTL = 360;
-  var REFERENCE_NODE = '14aogr53zzB8r9MjxzJ1jL3XiaMZqSqdHc'; //for livenet
-  //var REFERENCE_NODE = 'mjAFPh7F15o3BrAXbqZgUtUj6zjnKMWMhu'; //for testnet
+  //var REFERENCE_NODE = '14aogr53zzB8r9MjxzJ1jL3XiaMZqSqdHc'; //for livenet
+  var REFERENCE_NODE = 'mjAFPh7F15o3BrAXbqZgUtUj6zjnKMWMhu'; //for testnet
   
   var HALO_MARGIN = 6;
   var COLOR_TABLE = {
@@ -129,7 +129,7 @@ networkGraph = function (nameService) {
       refocus(string, true);
 
     } else {
-    	changeMode('individual');
+      changeMode('individual');
       refocus(string, true);
     }
   }
@@ -284,7 +284,6 @@ networkGraph = function (nameService) {
     //
     // addConnections(account, trustlines);
       api.getBitTx(account, function (err,data1) {
-        if (!!data1 && !!data1.txs) {
           data1.txs.forEach(function (tx) {
             if(JSON.stringify(tx.vin).indexOf(account) != -1){
               tx.vout.forEach(function (d) {
@@ -313,7 +312,6 @@ networkGraph = function (nameService) {
             }
           })
           addConnections(account, trustlines);
-        }
       })
   }
 

@@ -11,8 +11,8 @@
     </div>
     <div class="navbar-collapse collapse"collapse="$root.isCollapsed">
       <ul class="nav navbar-nav">
-        <li data-ng-repeat="item in menu" ui-route="{{item.link}}" data-ng-class="{active: $uiRoute}">
-          <a href="{{item.link}}">{{item.title|translate}}</a>
+        <li data-ng-repeat="item in menu" class="headbar" ui-route="{{item.link}}" >
+          <a href="{{item.link}}" data-ng-class="{current: item.link===$root.title.toLowerCase()}">{{item.title|translate}}</a>
         </li>
       </ul>
       <span class="hidden-xs navbar-form navbar-left" data-ng-include src="'views/includes/search.html'"></span>

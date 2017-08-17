@@ -1226,16 +1226,12 @@ angular.module('insight.status').controller('StatusController',
 
 // Source: public/src/js/controllers/transactions.js
 angular.module('insight.transactions',['ngSanitize', 'ngCsv']).controller('transactionsController',
-function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,Block,BlacklistService,Address,Status,locals) {
+function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,Block,BlacklistService,Address,Status) {
   $scope.global = Global;
   $scope.loading = false;
   $scope.loadedBy = null;
   $scope.youShow=true;
   $scope.zuoShow=true;
-  $scope.isLogin=locals.get('isLogin');
-  console.log('home.islogin=',$scope.isLogin)
-  console.log("transaction controller start",$scope.isLogin);
-
   var txdirection_you=true;
   var txdirection_zuo=true;
 
@@ -1243,7 +1239,6 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   var pagesTotal = 1;
   var COIN = 100000000;
   var isHome=false;
-
  
    //Datepicker
   var _formatTimestamp = function (date) {
@@ -1253,14 +1248,17 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
     return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]); //padding
   };
+  var _formatTimestampIE = function (date) {
+    var yyyy = date.getFullYear().toString();
+    var mm = (date.getMonth() + 1).toString(); // getMonth() is zero-based
+    var dd  = date.getDate().toString();
+
+    return yyyy + '/' + (mm[1] ? mm : '0' + mm[0]) + '/' + (dd[1] ? dd : '0' + dd[0]); //padding
+  };
   $scope.dateval= _formatTimestamp(new Date())
-/*  $scope.datevala = _formatTimestamp(new Date());
-  $scope.datevalb = _formatTimestamp(new Date());*/
- /* $scope.stime = Math.round((new Date(_formatTimestamp(new Date()) +" 00:00:00")).getTime()/1000);
-  $scope.etime = Math.round((new Date(_formatTimestamp(new Date()) +" 23:59:59")).getTime()/1000);*/
 
   $scope.searchByAddr = function(){
-    $scope.searchAddr = $scope.searchAddr;
+      $scope.blackaddr="";
       isHome=true;
       $scope.txs=[];
       pageNum = 0;
@@ -1270,7 +1268,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
   var _blackAddr = function(){
       var addr = $scope.searchAddr;
-      $scope.blackaddr="";
+
       BlacklistService.get({}, function (res) {
         var data = res.data;
          for(var i in data){
@@ -1325,14 +1323,15 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
   $scope.$watch('datevala', function(newValue, oldValue) {
     if (newValue !== oldValue) {
-      $scope.stime = Math.round((new Date(_formatTimestamp(newValue) +" 00:00:00")).getTime()/1000);
+      $scope.stime = Math.round((new Date(_formatTimestampIE(newValue) +" 00:00:00")).getTime()/1000);
+      console.log("$scope.stime "+$scope.stime);
       $scope.formatstime = _formatTimestamp(new Date($scope.stime*1000))
     }
 
   });
   $scope.$watch('datevalb', function(newValue, oldValue) {
     if (newValue !== oldValue) {
-        $scope.etime = Math.round((new Date(_formatTimestamp(newValue) +" 23:59:59")).getTime()/1000);
+        $scope.etime = Math.round((new Date(_formatTimestampIE(newValue) +" 23:59:59")).getTime()/1000);
         $scope.formatetime = _formatTimestamp(new Date($scope.etime*1000))
         if($scope.stime>$scope.etime){
             alert("开始时间不能大于结束时间!");
@@ -2235,7 +2234,8 @@ angular.module('insight').config(function($routeProvider) {
     }).
     when('/block-index/:blockHeight', {
       controller: 'BlocksController',
-      templateUrl: 'views/redirect.html'
+      templateUrl: 'views/redirect.html',
+      title: 'Bitcoin Block '
     }).
     when('/tx/send', {
       templateUrl: 'views/transaction_sendraw.html',
@@ -2251,15 +2251,15 @@ angular.module('insight').config(function($routeProvider) {
     }).
     when('/blocks', {
       templateUrl: 'views/block_list.html',
-      title: 'Bitcoin Blocks solved Today'
+      title: 'Blocks'
     }).
      when('/transcations', {
       templateUrl: 'views/transcation_list.html',
-      title: 'Bitcoin Blocks solved Today'
+      title: 'transcations'
     }).
      when('/blocks-index', {
       templateUrl: 'views/index.html',
-      title: 'Bitcoin Blocks solved Today'
+      title: 'blocks-index'
     }).
     when('/blocks-date/:blockDate/:startTimestamp?', {
       templateUrl: 'views/block_list.html',
@@ -2279,7 +2279,7 @@ angular.module('insight').config(function($routeProvider) {
     }).
     when('/blacklists', {
       templateUrl: 'views/blacklists.html',
-      title: 'Blacklist'
+      title: 'Blacklists'
     }).
     when('/messages/verify', {
       templateUrl: 'views/messages_verify.html',
