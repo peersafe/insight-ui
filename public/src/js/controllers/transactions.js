@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('insight.transactions',['ngSanitize', 'ngCsv']).controller('transactionsController',
-function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,Block,BlacklistService,Address,Status,locals) {
+function($scope, $rootScope, $routeParams, $location,locals,Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,Block,BlacklistService,Address,Status) {
   $scope.global = Global;
   $scope.loading = false;
   $scope.loadedBy = null;
   $scope.youShow=true;
   $scope.zuoShow=true;
+
   $scope.$on('isLogin', function(d, data) {
     if (data === true) {
       $scope.isLogin = locals.get('isLogin');
@@ -17,6 +18,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   console.log('home.islogin=',$scope.isLogin)
   console.log("transaction controller start",$scope.isLogin);
 
+
   var txdirection_you=true;
   var txdirection_zuo=true;
 
@@ -24,7 +26,6 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   var pagesTotal = 1;
   var COIN = 100000000;
   var isHome=false;
-
  
    //Datepicker
   var _formatTimestamp = function (date) {
@@ -34,11 +35,14 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
     return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]); //padding
   };
+  var _formatTimestampIE = function (date) {
+    var yyyy = date.getFullYear().toString();
+    var mm = (date.getMonth() + 1).toString(); // getMonth() is zero-based
+    var dd  = date.getDate().toString();
+
+    return yyyy + '/' + (mm[1] ? mm : '0' + mm[0]) + '/' + (dd[1] ? dd : '0' + dd[0]); //padding
+  };
   $scope.dateval= _formatTimestamp(new Date())
-/*  $scope.datevala = _formatTimestamp(new Date());
-  $scope.datevalb = _formatTimestamp(new Date());*/
- /* $scope.stime = Math.round((new Date(_formatTimestamp(new Date()) +" 00:00:00")).getTime()/1000);
-  $scope.etime = Math.round((new Date(_formatTimestamp(new Date()) +" 23:59:59")).getTime()/1000);*/
 
   $scope.searchByAddr = function(){
       isHome=true;
@@ -105,14 +109,15 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
   $scope.$watch('datevala', function(newValue, oldValue) {
     if (newValue !== oldValue) {
-      $scope.stime = Math.round((new Date(_formatTimestamp(newValue) +" 00:00:00")).getTime()/1000);
+      $scope.stime = Math.round((new Date(_formatTimestampIE(newValue) +" 00:00:00")).getTime()/1000);
+      console.log("$scope.stime "+$scope.stime);
       $scope.formatstime = _formatTimestamp(new Date($scope.stime*1000))
     }
 
   });
   $scope.$watch('datevalb', function(newValue, oldValue) {
     if (newValue !== oldValue) {
-        $scope.etime = Math.round((new Date(_formatTimestamp(newValue) +" 23:59:59")).getTime()/1000);
+        $scope.etime = Math.round((new Date(_formatTimestampIE(newValue) +" 23:59:59")).getTime()/1000);
         $scope.formatetime = _formatTimestamp(new Date($scope.etime*1000))
         if($scope.stime>$scope.etime){
             alert("开始时间不能大于结束时间!");

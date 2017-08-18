@@ -13,7 +13,8 @@ angular.module('insight').config(function($routeProvider) {
     }).
     when('/block-index/:blockHeight', {
       controller: 'BlocksController',
-      templateUrl: 'views/redirect.html'
+      templateUrl: 'views/redirect.html',
+      title: 'Bitcoin Block '
     }).
     when('/tx/send', {
       templateUrl: 'views/transaction_sendraw.html',
@@ -29,15 +30,15 @@ angular.module('insight').config(function($routeProvider) {
     }).
     when('/blocks', {
       templateUrl: 'views/block_list.html',
-      title: 'Bitcoin Blocks solved Today'
+      title: 'Blocks'
     }).
      when('/transcations', {
       templateUrl: 'views/transcation_list.html',
-      title: 'Bitcoin Blocks solved Today'
+      title: 'transcations'
     }).
      when('/blocks-index', {
       templateUrl: 'views/index.html',
-      title: 'Bitcoin Blocks solved Today'
+      title: 'blocks-index'
     }).
     when('/blocks-date/:blockDate/:startTimestamp?', {
       templateUrl: 'views/block_list.html',
@@ -57,7 +58,7 @@ angular.module('insight').config(function($routeProvider) {
     }).
     when('/blacklists', {
       templateUrl: 'views/blacklists.html',
-      title: 'Blacklist'
+      title: 'Blacklists'
     }).
     when('/messages/verify', {
       templateUrl: 'views/messages_verify.html',

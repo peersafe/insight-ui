@@ -127,12 +127,16 @@ margin-left: 0;
   margin: 0;
   border: 0;
 }
+.navbar-default .navbar-nav>li{
+  padding: 0 10px 20px 10px;
+
+}
 
 .navbar-default .navbar-nav>li>a {
   color: #F4FBE8;
   font-family: 'Ubuntu', sans-serif;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus {
@@ -141,8 +145,9 @@ margin-left: 0;
 }
 
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>.active>a:hover {
-  background-color: #fff;
+  border-bottom: 3px solid #fff;
 }
+.navbar-default .navbar-nav>li>a:hover,.navbar-default .navbar-nav>li>a:focus{color:#fff;background-color:transparent}
 
 .navbar-form .form-group {
   display: block;
@@ -185,8 +190,8 @@ margin-left: 0;
 }
 
 .navbar-nav>li>a {
-  padding-top: 22px;
-  padding-bottom: 22px;
+  padding:22px 10px 10px 10px;
+
 }
 
 #search-form { color: #fff; }
