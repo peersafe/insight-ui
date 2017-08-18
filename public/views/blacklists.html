@@ -2,6 +2,9 @@
 
     <div data-ng-include="'views/login.html'" data-ng-hide="isLogin"></div>
     <section data-ng-show="isLogin" data-ng-init="">
+        <div class="alert alert-danger" data-ng-show="flashMessage">
+            {{$root.flashMessage}}
+        </div>
         <div class="tian-popWrap" ng-show="isAdd">
             <div class="tian-pop">
                 <img src="images/cuo.png" width="40" alt="" ng-click="cancelAdd()">
