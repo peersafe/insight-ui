@@ -58,5 +58,4 @@ angular.module('insight.address').controller('AddressController',
           $location.path(history.go(-1));
         });
     };
-
   });

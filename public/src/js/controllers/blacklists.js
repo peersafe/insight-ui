@@ -55,7 +55,6 @@ angular.module('insight.blacklists')
         // TODO 还需要验证地址的有效性
         $scope.newblacklist.addr = '无效的地址'
       } else {
-        $scope.isAdd = false;
         $scope.saveBlacklist($scope.newblacklist);
       }
     };
@@ -194,10 +193,13 @@ angular.module('insight.blacklists')
       } else {
         $http.post(Service.apiPrefix + '/blacklist', blacklist)
           .success(function(data, status, headers, config) {
-            if (data.code === 0) {
+            if (data.code === -202) {
+              $scope.newblacklist.addr = '地址已存在'
+            } else if (data.code === 0) {
               $scope.list();
+              $scope.newblacklist = {}
+              $scope.isAdd = false;
             }
-            $scope.newblacklist = {}
           })
           .error(function(data, status, headers, config) {
           });
