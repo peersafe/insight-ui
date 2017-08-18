@@ -214,6 +214,9 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
     pagesTotal = data.pagesTotal;
     pageNum += 1;
     data.txs.forEach(function(tx) {
+      console.log('_paginate.pageNum=',pageNum)
+      console.log('_paginate.pagesTotal=',pagesTotal)
+
       if(isHome){
         _processTX(tx);
         $scope.txs.push(tx);
@@ -229,7 +232,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
       }
      
     });
-    //$scope.loading = false;
+    $scope.loading = false;
   };
 
   var _TxByDate = function(data){
@@ -242,12 +245,15 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
              if(_Txdirection(tx)){
                 _processTX(tx);
                 $scope.txs.push(tx);
-                $scope.exceltxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),value:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认数"});
-                $scope.exceladdtxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),valueIn:tx.valueIn + " BTC",valueOut:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认数"});
+                $scope.exceltxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),value:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认"});
+                $scope.exceladdtxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),valueIn:tx.valueIn + " BTC",valueOut:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认"});
              }
           }
       })
-      if(txCount<10&&pageNum<Math.round(pagesTotal/10)){
+    console.log('pageNum=',pageNum)
+    console.log('pagesTotal=',pagesTotal)
+    console.log('txCount=',txCount)
+      if(txCount<10&&pageNum<Math.round(pagesTotal/10) && pageNum>0){
         _byAddress();
       }else{
          $scope.loading = false;
