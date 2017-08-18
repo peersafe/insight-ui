@@ -1,7 +1,4 @@
-<section data-ng-controller="BlacklistsController">
-
-    <div data-ng-include="'views/login.html'" data-ng-hide="isLogin"></div>
-    <section data-ng-show="isLogin" data-ng-init="">
+    <section data-ng-controller="BlacklistsController">
         <div class="alert alert-danger" data-ng-show="flashMessage">
             {{$root.flashMessage}}
         </div>
@@ -93,4 +90,3 @@
 
         </div>
     </section>
-</section>

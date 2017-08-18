@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('insight.address').controller('AddressController',
-  function($scope, $rootScope, $routeParams, $location, Global, Address, getSocket, locals) {
+  function($scope, $rootScope, $routeParams, $location, Global, Address, getSocket) {
     $scope.global = Global;
-    $scope.isLogin = locals.get('isLogin');
 
     var socket = getSocket($scope);
     var addrStr = $routeParams.addrStr;
@@ -54,7 +53,9 @@ angular.module('insight.address').controller('AddressController',
           } else {
             $rootScope.flashMessage = 'Address Not Found';
           }
-          setTimeout(function(){$rootScope.flashMessage =null},2000);
+          setTimeout(function () {
+            $rootScope.flashMessage = null
+          }, 2000);
           $location.path(history.go(-1));
         });
     };

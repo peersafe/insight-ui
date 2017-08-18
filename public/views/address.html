@@ -1,8 +1,6 @@
-<section data-ng-controller="AddressController">
-    <div data-ng-include="'views/login.html'" data-ng-hide="isLogin"></div>
-    <div data-ng-show="isLogin">
+
         <div data-ng-include src="'views/includes/connection.html'"></div>
-        <section data-ng-init="findOne()">
+        <section data-ng-controller="AddressController" data-ng-init="findOne()">
             <div class="secondary_navbar hidden-xs hidden-sm" scroll data-ng-class="{'hidden': !secondaryNavbar}"
                  data-ng-show="address.addrStr" data-ng-init="hideSNavbar=0">
                 <div class="container" data-ng-if="!hideSNavbar">
@@ -129,5 +127,4 @@
                 <div data-ng-include src="'views/transaction/list.html'" when-scrolled="loadMore()"></div>
             </div>
         </section>
-    </div>
-</section>
+

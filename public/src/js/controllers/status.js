@@ -1,10 +1,8 @@
 'use strict';
 
 angular.module('insight.status').controller('StatusController',
-  function($scope, $routeParams, $location, Global, Status, Sync, getSocket, locals) {
+  function($scope, $routeParams, $location, Global, Status, Sync, getSocket) {
     $scope.global = Global;
-    $scope.isLogin = locals.get('isLogin');
-    console.log("status controller start",$scope.isLogin);
 
     $scope.getStatus = function(q) {
       Status.get({

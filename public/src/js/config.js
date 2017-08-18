@@ -28,6 +28,10 @@ angular.module('insight').config(function($routeProvider) {
       templateUrl: 'views/home.html',
       title: 'Home'
     }).
+    when('/login', {
+      templateUrl: 'views/login.html',
+      title: 'Login'
+    }).
     when('/blocks', {
       templateUrl: 'views/block_list.html',
       title: 'Blocks'
@@ -76,10 +80,15 @@ angular.module('insight')
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('!');
   })
-  .run(function($rootScope, $route, $location, $routeParams, $anchorScroll, ngProgress, gettextCatalog, amMoment) {
+  .run(function($rootScope, $route, $location, $routeParams, $anchorScroll, ngProgress, gettextCatalog, amMoment, CurrentUser) {
     gettextCatalog.currentLanguage = defaultLanguage;
     amMoment.changeLocale(defaultLanguage);
     $rootScope.$on('$routeChangeStart', function() {
+      CurrentUser.get({},function (res) {
+        $rootScope.$broadcast('userLogin');
+      }, function (err) {
+        $location.path('/login');
+      });
       ngProgress.start();
     });
 

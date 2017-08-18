@@ -45,9 +45,8 @@ angular.module('insight.login', []);
 
 // Source: public/src/js/controllers/address.js
 angular.module('insight.address').controller('AddressController',
-  function($scope, $rootScope, $routeParams, $location, Global, Address, getSocket, locals) {
+  function($scope, $rootScope, $routeParams, $location, Global, Address, getSocket) {
     $scope.global = Global;
-    $scope.isLogin = locals.get('isLogin');
 
     var socket = getSocket($scope);
     var addrStr = $routeParams.addrStr;
@@ -98,7 +97,9 @@ angular.module('insight.address').controller('AddressController',
           } else {
             $rootScope.flashMessage = 'Address Not Found';
           }
-          setTimeout(function(){$rootScope.flashMessage =null},2000);
+          setTimeout(function () {
+            $rootScope.flashMessage = null
+          }, 2000);
           $location.path(history.go(-1));
         });
     };
@@ -122,13 +123,11 @@ angular.module('insight.blacklists')
     $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
 }])
     .controller('BlacklistsController',
-  function ($scope, $rootScope, $routeParams, $http, Service, BlacklistService, locals) {
+  function ($scope, $rootScope, $routeParams, $http, Service, BlacklistService) {
     // $scope.global = Global;
     // $scope.loading = false;
 
     console.log("blacklists controller start");
-
-    $scope.isLogin = locals.get('isLogin');
 
     // $scope.blacklists = BlacklistService.list();
     $scope.list = function () {
@@ -367,9 +366,8 @@ angular.module('insight.blacklists')
 
 // Source: public/src/js/controllers/blocks.js
 angular.module('insight.blocks').controller('BlocksController',
-  function($scope, $rootScope, $routeParams, $location, Global, Block, Blocks, BlockByHeight, Status, locals) {
+  function($scope, $rootScope, $routeParams, $location, Global, Block, Blocks, BlockByHeight, Status) {
   $scope.global = Global;
-  $scope.isLogin = locals.get('isLogin');
   $scope.loading = false;
   $scope.excelblocks = [];
 
@@ -664,23 +662,12 @@ angular.module('insight.system').controller('FooterController',
 
 // Source: public/src/js/controllers/header.js
 angular.module('insight.system').controller('HeaderController',
-  function($scope, $rootScope, $modal, getSocket, Global, Block, locals) {
+  function($scope, $rootScope, $modal, getSocket, Global, Block) {
     $scope.global = Global;
-    $scope.isLogin = locals.get('isLogin');
 
-    $scope.$on('isLogin', function(d, data) {
-      if (data === true) {
-        $scope.isLogin = locals.get('isLogin');
-        console.log('HEADER.isLogin=',$scope.isLogin)
-      }
+    $scope.$on('userLogin', function(d, data) {
+      $rootScope.isLogin = true;
     });
-    // $scope.$on('loginpage', function(d, data) {
-    //   if (data === true) {
-    //     $scope.isLogin = false;
-    //     console.log('HEADER.loginpage.isLogin=',$scope.isLogin)
-    //   }
-    // });
-    console.log('header.isLogin=',$scope.isLogin)
 
     $rootScope.currency = {
       factor: 1,
@@ -735,12 +722,7 @@ angular.module('insight.system').controller('HeaderController',
 
 // Source: public/src/js/controllers/history.js
 angular.module('insight.history').controller('HistoryController',
-  function ($scope, $rootScope, $routeParams, HistoryService, locals) {
-    $scope.isLogin = locals.get('isLogin')
-
-    //Datepicker
-    console.log("historys controller start",$scope.isLogin);
-
+  function ($scope, $rootScope, $routeParams, HistoryService) {
 
       var _formatTimestamp = function (date) {
         var yyyy = date.getUTCFullYear().toString();
@@ -779,10 +761,8 @@ var TRANSACTION_DISPLAYED = 6;
 var BLOCKS_DISPLAYED = 8;
 
 angular.module('insight.system').controller('IndexController',
-  function($scope, $rootScope, Global, getSocket,Block, Blocks,Status,TransactionsByBlock,locals,$timeout/*,BlackByAddr*/) {
+  function($scope, $rootScope, Global, getSocket,Block, Blocks,Status,TransactionsByBlock,$timeout/*,BlackByAddr*/) {
     $scope.global = Global;
-    $scope.isLogin = locals.get('isLogin');
-    console.log("index controller start",$scope.isLogin);
 
     if ($rootScope.flashMessage) {
       $timeout(function(){$rootScope.flashMessage=null}, 2000);
@@ -906,10 +886,8 @@ angular.module('insight.system').controller('IndexController',
 
 // Source: public/src/js/controllers/login.js
 angular.module('insight.login').controller('loginController',
-  function ($scope, $rootScope, $routeParams, $location, Account, locals) {
-    $scope.isLogin = locals.get('isLogin');
+  function ($scope, $rootScope, $routeParams, $location, Account) {
     console.log('$routeParams=',$routeParams)
-    console.log('login.isLogin=',$scope.isLogin)
     // $scope.$emit('loginpage', true)
 
 
@@ -942,13 +920,9 @@ angular.module('insight.login').controller('loginController',
             $scope.passwordError = "密码错误"
             $scope.user.password = '';
           } else if (res.code === 0) {
-            //存储数据
-            locals.set("isLogin", true);
-            //读取数据
-            console.log('local:islogin ===',locals.get("isLogin"));
+            $rootScope.isLogin = true;
+            // $scope.$emit('isLogin', true);
             $location.path('/home');
-            $scope.$emit('isLogin', true);
-            $scope.isLogin = true;
           }
 
         });
@@ -1224,10 +1198,8 @@ angular.module('insight.search').controller('SearchController',
 
 // Source: public/src/js/controllers/status.js
 angular.module('insight.status').controller('StatusController',
-  function($scope, $routeParams, $location, Global, Status, Sync, getSocket, locals) {
+  function($scope, $routeParams, $location, Global, Status, Sync, getSocket) {
     $scope.global = Global;
-    $scope.isLogin = locals.get('isLogin');
-    console.log("status controller start",$scope.isLogin);
 
     $scope.getStatus = function(q) {
       Status.get({
@@ -1281,23 +1253,12 @@ angular.module('insight.status').controller('StatusController',
 
 // Source: public/src/js/controllers/transactions.js
 angular.module('insight.transactions',['ngSanitize', 'ngCsv']).controller('transactionsController',
-function($scope, $rootScope, $routeParams, $location,locals,Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,Block,BlacklistService,Address,Status) {
+function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,Block,BlacklistService,Address,Status) {
   $scope.global = Global;
   $scope.loading = false;
   $scope.loadedBy = null;
   $scope.youShow=true;
   $scope.zuoShow=true;
-
-  $scope.$on('isLogin', function(d, data) {
-    if (data === true) {
-      $scope.isLogin = locals.get('isLogin');
-      console.log('HOME.isLogin=',$scope.isLogin)
-    }
-  });
-  $scope.isLogin=locals.get('isLogin');
-  console.log('home.islogin=',$scope.isLogin)
-  console.log("transaction controller start",$scope.isLogin);
-
 
   var txdirection_you=true;
   var txdirection_zuo=true;
@@ -1333,7 +1294,7 @@ function($scope, $rootScope, $routeParams, $location,locals,Global, Transaction,
   }
 
   var _blackAddr = function(){
-      var addr = $scope.$$childHead.searchAddr;
+      var addr = $scope.searchAddr;
       $scope.blackaddr="";
       BlacklistService.get({}, function (res) {
         var data = res.data;
@@ -1575,7 +1536,7 @@ function($scope, $rootScope, $routeParams, $location,locals,Global, Transaction,
   var _byAddress = function () {
     var address = $routeParams.addrStr;
     if(address===undefined){
-      address = $scope.$$childHead.searchAddr;
+      address = $scope.searchAddr;
     }
     TransactionsByAddress.get({
       address: address,
@@ -2023,28 +1984,16 @@ angular.module('insight.history')
 
 // Source: public/src/js/services/login.js
 angular.module('insight.login')
+  .factory('CurrentUser',
+    function ($resource, Service) {
+      // console.log("Service:", Service.apiPrefix)
+      return $resource(Service.apiPrefix + '/currentuser');
+    })
   .factory('Account',
     function ($resource, Service) {
-      console.log("Service:", Service.apiPrefix)
+      // console.log("Service:", Service.apiPrefix)
       return $resource(Service.apiPrefix + '/user');
-    })
-  .factory('locals',['$window',function($window){
-    return{        //存储单个属性
-      set :function(key,value){
-        $window.localStorage[key]=value;
-      },        //读取单个属性
-      get:function(key,defaultValue){
-        return  $window.localStorage[key] || defaultValue;
-      },        //存储对象，以JSON格式存储
-      setObject:function(key,value){
-        $window.localStorage[key]=JSON.stringify(value);
-      },        //读取对象
-      getObject: function (key) {
-        return JSON.parse($window.localStorage[key] || '{}');
-      }
-
-    }
-  }]);
+    });
 
 // Source: public/src/js/services/session.js
 /**
@@ -2316,6 +2265,10 @@ angular.module('insight').config(function($routeProvider) {
       templateUrl: 'views/home.html',
       title: 'Home'
     }).
+    when('/login', {
+      templateUrl: 'views/login.html',
+      title: 'Login'
+    }).
     when('/blocks', {
       templateUrl: 'views/block_list.html',
       title: 'Blocks'
@@ -2364,10 +2317,15 @@ angular.module('insight')
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('!');
   })
-  .run(function($rootScope, $route, $location, $routeParams, $anchorScroll, ngProgress, gettextCatalog, amMoment) {
+  .run(function($rootScope, $route, $location, $routeParams, $anchorScroll, ngProgress, gettextCatalog, amMoment, CurrentUser) {
     gettextCatalog.currentLanguage = defaultLanguage;
     amMoment.changeLocale(defaultLanguage);
     $rootScope.$on('$routeChangeStart', function() {
+      CurrentUser.get({},function (res) {
+        $rootScope.$broadcast('userLogin');
+      }, function (err) {
+        $location.path('/login');
+      });
       ngProgress.start();
     });
 

@@ -1,10 +1,8 @@
 'use strict';
 
 angular.module('insight.login').controller('loginController',
-  function ($scope, $rootScope, $routeParams, $location, Account, locals) {
-    $scope.isLogin = locals.get('isLogin');
+  function ($scope, $rootScope, $routeParams, $location, Account) {
     console.log('$routeParams=',$routeParams)
-    console.log('login.isLogin=',$scope.isLogin)
     // $scope.$emit('loginpage', true)
 
 
@@ -37,13 +35,9 @@ angular.module('insight.login').controller('loginController',
             $scope.passwordError = "密码错误"
             $scope.user.password = '';
           } else if (res.code === 0) {
-            //存储数据
-            locals.set("isLogin", true);
-            //读取数据
-            console.log('local:islogin ===',locals.get("isLogin"));
+            $rootScope.isLogin = true;
+            // $scope.$emit('isLogin', true);
             $location.path('/home');
-            $scope.$emit('isLogin', true);
-            $scope.isLogin = true;
           }
 
         });
