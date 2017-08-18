@@ -221,8 +221,6 @@ function($scope, $rootScope, $routeParams, $location,locals,Global, Transaction,
   };
 
   var _paginate = function(data) {
-    $scope.loading = false;
-
     pagesTotal = data.pagesTotal;
     pageNum += 1;
     data.txs.forEach(function(tx) {
@@ -241,6 +239,7 @@ function($scope, $rootScope, $routeParams, $location,locals,Global, Transaction,
       }
      
     });
+    //$scope.loading = false;
   };
 
   var _TxByDate = function(data){
@@ -306,7 +305,8 @@ function($scope, $rootScope, $routeParams, $location,locals,Global, Transaction,
       }else{
         _paginate(data);
       }
-
+    },function(err){
+      $scope.loading = false;
     });
   };
 
