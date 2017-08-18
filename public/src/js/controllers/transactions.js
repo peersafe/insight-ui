@@ -34,11 +34,12 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   $scope.dateval= _formatTimestamp(new Date())
 
   $scope.searchByAddr = function(){
+      $scope.loading = true;
       isHome=true;
       $scope.txs=[];
       pageNum = 0;
       _blackAddr();
-     _byAddress();
+      _byAddress();
   }
 
   var _blackAddr = function(){
@@ -228,7 +229,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
       }
      
     });
-    //$scope.loading = false;
+    $scope.loading = false;
   };
 
   var _TxByDate = function(data){
