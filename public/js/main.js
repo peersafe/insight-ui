@@ -763,8 +763,9 @@ angular.module('insight.history').controller('HistoryController',
     $scope.list();
 
     $scope.expand = function (num, id) {
-      $scope.histories[id].limitpage = num;
-      console.log('$scope.histories[id]=', $scope.histories[id])
+      var length = $scope.histories.length;
+      $scope.histories[length - 1 - id].limitpage = num;
+      console.log('$scope.histories[id]=', $scope.histories[length - 1 - id])
     }
 
     $scope.params = $routeParams;
