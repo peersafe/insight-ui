@@ -27,17 +27,17 @@ angular.module('insight.blocks').controller('BlocksController',
     return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]); //padding
   };
 
-      //Datepicker
-      var _formatTime = function (date) {
-          var yyyy = date.getFullYear().toString();
-          var mm = (date.getMonth() + 1).toString(); // getMonth() is zero-based
-          var dd  = date.getDate().toString();
-          var h  = date.getHours().toString();
-          var m  = date.getMinutes().toString();
-          var s  = date.getSeconds().toString();
+  //Datepicker
+  var _formatTime = function (date) {
+      var yyyy = date.getFullYear().toString();
+      var mm = (date.getMonth() + 1).toString(); // getMonth() is zero-based
+      var dd  = date.getDate().toString();
+      var h  = date.getHours().toString();
+      var m  = date.getMinutes().toString();
+      var s  = date.getSeconds().toString();
 
-          return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]) + " " + (h[1] ? h : '0' + h[0]) + ":" + (m[1] ? m : '0' + m[0]) + ":" + (s[1] ? s : '0' + s[0]) ; //padding
-      };
+      return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]) + " " + (h[1] ? h : '0' + h[0]) + ":" + (m[1] ? m : '0' + m[0]) + ":" + (s[1] ? s : '0' + s[0]) ; //padding
+  };
 
   $scope.dateval = _formatTimestamp(new Date());
 
@@ -55,9 +55,10 @@ angular.module('insight.blocks').controller('BlocksController',
   };
 
   $scope.humanSince = function(time) {
-    var m = moment.unix(time).startOf('day');
+  /*  var m = moment.unix(time).startOf('day');
     var b = moment().startOf('day');
-    return m.max().from(b);
+    return m.max().from(b);*/
+    return _formatTime(new Date(time*1000))
   };
 
  
