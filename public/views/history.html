@@ -10,10 +10,10 @@
 					<td class="td2" colspan="2" data-ng-show="!history.txsnum"><span class=" daochu">导出</span></td>
 				</tr>
 				<tr class="tab2" data-ng-repeat="user in history.user|limitTo:history.limitpage">
-					<td class="td1" data-ng-show="!history.txsnum">{{user.addr}}</td>
-					<td class="td1" data-ng-show="history.txsnum>0"><a href="address/{{user.addr}}">{{user.addr}}</a></td>
-					<td class="">{{user.comment}}</td>
-					<td class="td2">{{user.txsnum}}个交易</td>
+					<td class="td1" style="width:50%" data-ng-show="!history.txsnum">{{user.addr}}</td>
+					<td class="td1" style="width:50%" data-ng-show="history.txsnum>0"><a href="address/{{user.addr}}">{{user.addr}}</a></td>
+					<td class="" style="width:33%">{{user.comment}}</td>
+					<td class="td2" style="width:17%">{{user.txsnum}}个交易</td>
 				</tr>
 			</table>
 			<b data-ng-show="history.user.length>0">{{history.txsnum}}个交易</b>
