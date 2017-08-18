@@ -995,7 +995,7 @@ table a{color: #30bfa1;}
 .history{width: 1200px;margin: 0 auto;position: relative;}
 .history h1{font-size: 22px;margin-top: 30px;text-align: center;}
 .hdr{width: 1140px; background: #f4fdfc; border-radius: 5px; padding: 30px;margin-top: 30px; padding-bottom: 90px;border: 1px solid #ddd;}
-.hdr .tab1{width: 1140px;margin-bottom: 20px;font-size: 16px; font-weight: bold;margin-top: 0;}
+.hdr .tab1{margin-bottom: 20px;font-size: 16px; font-weight: bold;margin-top: 0;}
 .hdr .tab1.td1{text-align: left;}
 .hdr .tab1 .td2{text-align: right;}
 .hdr .tab2{width: 1140px;height: 50px; border: 1px solid #ddd; border-radius: 3px; background: #fff; margin-top: 10px; font-size: 14px; font-weight: normal; margin-bottom: 0;}

@@ -5,7 +5,7 @@
 				<tr class="thar">
 					<td class="td1">导入时间：{{history.import_time}}</td>
 					<td class="td2" colspan="2"><span class=" daochu" ng-csv="history.user" add-bom="true"
-													  data-ng-show="history.user.length>0" csv-header="['黑名单地址','备注','交易量']" filename="黑名单地址历史交易量统计_{{dateval}}.csv">导出</span></td>
+													  data-ng-show="history.txsnum>0" csv-header="['黑名单地址','备注','交易量']" filename="黑名单地址历史交易量统计_{{dateval}}.csv">导出</span></td>
 				</tr>
 				<tr class="tab2" data-ng-repeat="user in history.user|limitTo:history.limitpage">
 					<td class="td1"><a href="address/{{user.addr}}">{{user.addr}}</a></td>
