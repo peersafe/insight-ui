@@ -1,23 +1,12 @@
 'use strict';
 
 angular.module('insight.system').controller('HeaderController',
-  function($scope, $rootScope, $modal, getSocket, Global, Block, locals) {
+  function($scope, $rootScope, $modal, getSocket, Global, Block) {
     $scope.global = Global;
-    $scope.isLogin = locals.get('isLogin');
 
-    $scope.$on('isLogin', function(d, data) {
-      if (data === true) {
-        $scope.isLogin = locals.get('isLogin');
-        console.log('HEADER.isLogin=',$scope.isLogin)
-      }
+    $scope.$on('userLogin', function(d, data) {
+      $rootScope.isLogin = true;
     });
-    // $scope.$on('loginpage', function(d, data) {
-    //   if (data === true) {
-    //     $scope.isLogin = false;
-    //     console.log('HEADER.loginpage.isLogin=',$scope.isLogin)
-    //   }
-    // });
-    console.log('header.isLogin=',$scope.isLogin)
 
     $rootScope.currency = {
       factor: 1,

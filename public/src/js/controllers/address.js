@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('insight.address').controller('AddressController',
-  function($scope, $rootScope, $routeParams, $location, Global, Address, getSocket, locals) {
+  function($scope, $rootScope, $routeParams, $location, Global, Address, getSocket) {
     $scope.global = Global;
-    $scope.isLogin = locals.get('isLogin');
 
     var socket = getSocket($scope);
     var addrStr = $routeParams.addrStr;

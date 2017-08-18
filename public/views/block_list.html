@@ -1,8 +1,5 @@
-<section data-ng-controller="BlocksController">
-    <div data-ng-include="'views/login.html'" data-ng-hide="isLogin"></div>
-    <div data-ng-show="isLogin">
         <div data-ng-include src="'views/includes/connection.html'"></div>
-        <section data-ng-init="list()">
+        <section data-ng-controller="BlocksController" data-ng-init="list()">
             <div class="row">
                 <div class="col-xs-12 col-gray col-gray-fixed">
                     <div class="block-1">
@@ -90,5 +87,3 @@
             <h2 class="text-center text-muted" data-ng-show="!blocks.length && !loading"
                 translate>No blocks yet.</h2>
         </section>
-    </div>
-</section>

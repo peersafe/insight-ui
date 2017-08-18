@@ -1,8 +1,6 @@
-<section data-ng-controller="transactionsController">
-    <div data-ng-include="'views/login.html'" data-ng-hide="isLogin"></div>
-    <div data-ng-show="isLogin">
+
         <div data-ng-include src="'views/includes/connection.html'"></div>
-        <section data-ng-init="findThis()">
+        <section data-ng-controller="transactionsController" data-ng-init="findThis()">
             <div class="secondary_navbar hidden-xs hidden-sm" scroll data-ng-class="{'hidden': !secondaryNavbar}"
                  data-ng-show="tx.txid" data-ng-init="hideSNavbar=0">
                 <div class="container" data-ng-if="!hideSNavbar">
@@ -107,5 +105,3 @@
                 </div>
             </div>
         </section>
-    </div>
-</section>

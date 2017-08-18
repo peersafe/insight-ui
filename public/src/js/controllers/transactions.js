@@ -1,23 +1,12 @@
 'use strict';
 
 angular.module('insight.transactions',['ngSanitize', 'ngCsv']).controller('transactionsController',
-function($scope, $rootScope, $routeParams, $location,locals,Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,Block,BlacklistService,Address,Status) {
+function($scope, $rootScope, $routeParams, $location, Global, Transaction, TransactionsByBlock, TransactionsByAddress,BlockByHeight,Blocks,Block,BlacklistService,Address,Status) {
   $scope.global = Global;
   $scope.loading = false;
   $scope.loadedBy = null;
   $scope.youShow=true;
   $scope.zuoShow=true;
-
-  $scope.$on('isLogin', function(d, data) {
-    if (data === true) {
-      $scope.isLogin = locals.get('isLogin');
-      console.log('HOME.isLogin=',$scope.isLogin)
-    }
-  });
-  $scope.isLogin=locals.get('isLogin');
-  console.log('home.islogin=',$scope.isLogin)
-  console.log("transaction controller start",$scope.isLogin);
-
 
   var txdirection_you=true;
   var txdirection_zuo=true;
@@ -53,7 +42,7 @@ function($scope, $rootScope, $routeParams, $location,locals,Global, Transaction,
   }
 
   var _blackAddr = function(){
-      var addr = $scope.$$childHead.searchAddr;
+      var addr = $scope.searchAddr;
       $scope.blackaddr="";
       BlacklistService.get({}, function (res) {
         var data = res.data;
@@ -295,7 +284,7 @@ function($scope, $rootScope, $routeParams, $location,locals,Global, Transaction,
   var _byAddress = function () {
     var address = $routeParams.addrStr;
     if(address===undefined){
-      address = $scope.$$childHead.searchAddr;
+      address = $scope.searchAddr;
     }
     TransactionsByAddress.get({
       address: address,

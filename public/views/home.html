@@ -1,6 +1,4 @@
-<section data-ng-controller="transactionsController">
-    <div data-ng-include="'views/login.html'" data-ng-hide="isLogin"></div>
-    <div data-ng-if="true" data-ng-show="isLogin"
+    <div data-ng-if="true" data-ng-controller="transactionsController"
          data-ng-init="load('address')">
         <div class="if">
             <div class="mdWrap" data-ng-show="false">
@@ -29,4 +27,3 @@
         <!--        <input data-ng-show="true" type="text" data-ng-change="" data-ng-model="addr" value="2NCRHyeRjyo1bUiZXLLymapcPxLDrrXY5Gn"> -->
         <div data-ng-include src="'views/transaction/list.html'" when-scrolled="loadMore()"></div>
     </div>
-</section>

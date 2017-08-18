@@ -1,12 +1,7 @@
 'use strict';
 
 angular.module('insight.history').controller('HistoryController',
-  function ($scope, $rootScope, $routeParams, HistoryService, locals) {
-    $scope.isLogin = locals.get('isLogin')
-
-    //Datepicker
-    console.log("historys controller start",$scope.isLogin);
-
+  function ($scope, $rootScope, $routeParams, HistoryService) {
 
       var _formatTimestamp = function (date) {
         var yyyy = date.getUTCFullYear().toString();

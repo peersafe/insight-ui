@@ -1,7 +1,4 @@
-<section data-ng-controller="BlacklistsController">
-
-    <div data-ng-include="'views/login.html'" data-ng-hide="isLogin"></div>
-    <section data-ng-show="isLogin" data-ng-init="">
+    <section data-ng-controller="BlacklistsController" data-ng-init="">
         <div class="tian-popWrap" ng-show="isAdd">
             <div class="tian-pop">
                 <img src="images/cuo.png" width="40" alt="" ng-click="cancelAdd()">
@@ -90,4 +87,3 @@
 
         </div>
     </section>
-</section>

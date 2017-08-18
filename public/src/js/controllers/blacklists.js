@@ -17,13 +17,11 @@ angular.module('insight.blacklists')
     $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
 }])
     .controller('BlacklistsController',
-  function ($scope, $rootScope, $routeParams, $http, Service, BlacklistService, locals) {
+  function ($scope, $rootScope, $routeParams, $http, Service, BlacklistService) {
     // $scope.global = Global;
     // $scope.loading = false;
 
     console.log("blacklists controller start");
-
-    $scope.isLogin = locals.get('isLogin');
 
     // $scope.blacklists = BlacklistService.list();
     $scope.list = function () {

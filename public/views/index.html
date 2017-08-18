@@ -1,11 +1,9 @@
-<section data-ng-controller="IndexController">
-    <div data-ng-include="'views/login.html'" data-ng-hide="isLogin"></div>
-    <div data-ng-show="isLogin">
+
         <div class="alert alert-danger" data-ng-show="flashMessage">
             {{$root.flashMessage}}
         </div>
         <div data-ng-include src="'views/includes/connection.html'"></div>
-        <section data-ng-init="index()">
+        <section data-ng-controller="IndexController" data-ng-init="index()">
             <div class="container">
                 <div id="home" class="row">
                     <div class="col-xs-12 col-md-12">
@@ -78,6 +76,5 @@
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
-    </div>
-</section>

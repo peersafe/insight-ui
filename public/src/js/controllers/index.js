@@ -4,10 +4,8 @@ var TRANSACTION_DISPLAYED = 6;
 var BLOCKS_DISPLAYED = 8;
 
 angular.module('insight.system').controller('IndexController',
-  function($scope, $rootScope, Global, getSocket,Block, Blocks,Status,TransactionsByBlock,locals,$timeout/*,BlackByAddr*/) {
+  function($scope, $rootScope, Global, getSocket,Block, Blocks,Status,TransactionsByBlock,$timeout/*,BlackByAddr*/) {
     $scope.global = Global;
-    $scope.isLogin = locals.get('isLogin');
-    console.log("index controller start",$scope.isLogin);
 
     if ($rootScope.flashMessage) {
       $timeout(function(){$rootScope.flashMessage=null}, 2000);
