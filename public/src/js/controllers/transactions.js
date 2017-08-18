@@ -288,6 +288,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
     TransactionsByAddress.get({
       address: address,
       pageNum: pageNum
+
     }, function(data) {
       if($scope.stime!=undefined||$scope.etime!=undefined){
         _TxByDate(data);
