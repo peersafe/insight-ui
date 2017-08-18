@@ -8,6 +8,10 @@ angular.module('insight.system').controller('HeaderController',
       $rootScope.isLogin = true;
     });
 
+    $scope.$on('userLogout', function(d, data) {
+      $rootScope.isLogin = false;
+    });
+
     $rootScope.currency = {
       factor: 1,
       bitstamp: 0,
