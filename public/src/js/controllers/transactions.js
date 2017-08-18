@@ -229,7 +229,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
       }
      
     });
-    $scope.loading = false;
+    //$scope.loading = false;
   };
 
   var _TxByDate = function(data){
