@@ -19,7 +19,7 @@ angular.module('insight.history').controller('HistoryController',
       HistoryService.get({}, function (res) {
         if (res.code === 0) {
           $scope.histories = res.data;
-          console.log($scope.histories)
+          // console.log('historys:',$scope.histories)
         }
       });
     }

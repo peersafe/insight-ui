@@ -3,14 +3,16 @@
 		<div class="hdr" data-ng-repeat="history in histories">
 			<table class="tab1 historytable">
 				<tr class="thar">
-					<td class="td1">导入时间：{{history.import_time}}</td>
-					<td class="td2" colspan="2"><span class=" daochu" ng-csv="history.user" add-bom="true"
-													  data-ng-show="history.user.length>0" csv-header="['黑名单地址','备注','交易量']" filename="黑名单地址历史交易量统计_{{dateval}}.csv">导出</span></td>
+					<td class="td1">导入时间：{{history.import_time  | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+
+					<td class="td2" colspan="2" data-ng-show="history.txsnum>0"><span class=" daochu" ng-csv="history.user" add-bom="true"
+													  csv-header="['黑名单地址','备注','交易量']" filename="黑名单地址历史交易量统计_{{dateval}}.csv">导出</span></td>
 				</tr>
 				<tr class="tab2" data-ng-repeat="user in history.user|limitTo:history.limitpage">
-					<td class="td1"><a href="address/{{user.addr}}">{{user.addr}}</a></td>
-					<td class="">{{user.comment}}</td>
-					<td class="td2">{{user.txsnum}}个交易</td>
+					<td class="td1" style="width:50%" data-ng-show="!history.txsnum">{{user.addr}}</td>
+					<td class="td1" style="width:50%" data-ng-show="history.txsnum>0"><a href="address/{{user.addr}}">{{user.addr}}</a></td>
+					<td class="" style="width:33%">{{user.comment}}</td>
+					<td class="td2" style="width:17%">{{user.txsnum}}个交易</td>
 				</tr>
 			</table>
 			<b data-ng-show="history.user.length>0">{{history.txsnum}}个交易</b>

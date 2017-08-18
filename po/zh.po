@@ -279,6 +279,10 @@ msgstr "没有输入(新生产的币)"
 msgid "No blocks yet."
 msgstr "尚无区块"
 
+#: public/views/transcation_list.html
+msgid "No Transactions."
+msgstr "尚无交易..."
+
 #: public/views/includes/search.html
 msgid "No matching records found!"
 msgstr "没找到匹配的记录"
@@ -458,11 +462,11 @@ msgstr "总数"
 
 #: public/views/address.html
 msgid "Total Received"
-msgstr "收到总数"
+msgstr "总收入"
 
 #: public/views/address.html
 msgid "Total Sent"
-msgstr "发送总数"
+msgstr "总支出"
 
 #: public/views/transaction.html
 msgid "Transaction"

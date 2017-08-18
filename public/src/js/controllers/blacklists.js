@@ -48,10 +48,9 @@ angular.module('insight.blacklists')
     $scope.doAdd = function () {
       if (!$scope.newblacklist || !$scope.newblacklist.addr) {
         $scope.newblacklist = {addr:'地址不能为空'}
-      } else if ($scope.newblacklist.addr.length < 34
-      || $scope.newblacklist.addr.length > 35) {
-        // TODO 还需要验证地址的有效性
-        $scope.newblacklist.addr = '无效的地址'
+      } else if ($scope.newblacklist.addr.length < 30
+        || $scope.newblacklist.addr.length > 40) {
+        $scope.newblacklist = {addr:'无效的地址'}
       } else {
         $scope.saveBlacklist($scope.newblacklist);
       }
@@ -104,6 +103,7 @@ angular.module('insight.blacklists')
       })
       $scope.checked = [];
       $scope.bedit = true;
+      $scope.select_all = false;
     };
 
     $scope.checked = [];

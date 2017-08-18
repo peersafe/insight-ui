@@ -32,6 +32,10 @@ angular.module('insight').config(function($routeProvider) {
       templateUrl: 'views/login.html',
       title: 'Login'
     }).
+    when('/logout', {
+      templateUrl: 'views/login.html',
+      title: 'Login'
+    }).
     when('/blocks', {
       templateUrl: 'views/block_list.html',
       title: 'Blocks'
@@ -87,6 +91,7 @@ angular.module('insight')
       CurrentUser.get({},function (res) {
         $rootScope.$broadcast('userLogin');
       }, function (err) {
+        $rootScope.$broadcast('userLogout');
         $location.path('/login');
       });
       ngProgress.start();
