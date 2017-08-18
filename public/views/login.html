@@ -1,23 +1,25 @@
-<div class="login-nav insight">
+<div class="login-nav insight" style="margin-top: -30px;">
 	<!-- <img src="images/login-logo.png" height="62" width="309" alt=""> -->
 	<b class="">比特币数据处理平台</b>
 </div>
-<div class="login-content" data-ng-controller="loginController" >
-	<div class="lon-con">
-		<img src="images/login-bg.png" alt="" width="600">
-		<form class="form1">
-			<div class="login-col">
-                                <span style="color:red">{{verifyError}}</span>
-				<input type="text" class="lin" placeholder="账号" data-ng-model="user.name">
-				<span style="color:red">{{accountError}}</span>
-			</div>
-			<div class="login-col">
-				<input type="password" class="lin" placeholder="密码" data-ng-model="user.password">
-				<span style="color:red">{{passwordError}}</span>
-			</div>
-			<div class="lo-btn">
-				<button data-ng-click="login()" class="ddlu">登 录</button>
-			</div>
-		</form>
+<div class="login-content" data-ng-controller="loginController" style="margin-top: 30px;" >
+	 <div class="row">
+		<div class="lon-con col-md-12">
+			<img src="images/login-bg.png" alt="" class="col-md-6">
+			<form class="form1"  class="col-md-6">
+				<div class="login-col">
+	                                <span style="color:red">{{verifyError}}</span>
+					<input type="text" class="lin" placeholder="账号" data-ng-model="user.name">
+					<span style="color:red">{{accountError}}</span>
+				</div>
+				<div class="login-col">
+					<input type="password" class="lin" placeholder="密码" data-ng-model="user.password">
+					<span style="color:red">{{passwordError}}</span>
+				</div>
+				<div class="lo-btn">
+					<button data-ng-click="login()" class="ddlu">登 录</button>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>

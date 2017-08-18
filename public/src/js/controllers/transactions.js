@@ -110,7 +110,7 @@ function($scope, $rootScope, $routeParams, $location,locals,Global, Transaction,
   $scope.$watch('datevala', function(newValue, oldValue) {
     if (newValue !== oldValue) {
       $scope.stime = Math.round((new Date(_formatTimestampIE(newValue) +" 00:00:00")).getTime()/1000);
-      console.log("$scope.stime "+$scope.stime);
+      //console.log("$scope.stime "+$scope.stime);
       $scope.formatstime = _formatTimestamp(new Date($scope.stime*1000))
     }
 
@@ -420,8 +420,9 @@ function($scope, $rootScope, $routeParams, $location,locals,Global, Transaction,
     }
     
   $scope.humanSince = function(time) {
-      var m = moment.unix(time);
-      return m.max().fromNow();
+    return _formatTime(new Date(time*1000));
+     /* var m = moment.unix(time);
+      return m.max().fromNow();*/
   };
   $scope.parseint = function(height) {
       return parseInt(height);
