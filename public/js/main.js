@@ -97,10 +97,12 @@ angular.module('insight.address').controller('AddressController',
           } else {
             $rootScope.flashMessage = 'Address Not Found';
           }
-          $location.path('/blocks-index');
+          setTimeout(function () {
+            $rootScope.flashMessage = null
+          }, 2000);
+          $location.path(history.go(-1));
         });
     };
-
   });
 
 // Source: public/src/js/controllers/blacklists.js

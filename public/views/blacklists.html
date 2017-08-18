@@ -1,4 +1,7 @@
-    <section data-ng-controller="BlacklistsController" data-ng-init="">
+    <section data-ng-controller="BlacklistsController">
+        <div class="alert alert-danger" data-ng-show="flashMessage">
+            {{$root.flashMessage}}
+        </div>
         <div class="tian-popWrap" ng-show="isAdd">
             <div class="tian-pop">
                 <img src="images/cuo.png" width="40" alt="" ng-click="cancelAdd()">
