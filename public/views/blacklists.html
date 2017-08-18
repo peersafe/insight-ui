@@ -73,7 +73,7 @@
                     <!--<td>操作</td>-->
                 </tr>
                 <tr class="fader"
-                    data-ng-repeat='b in blacklists | orderBy:"b.addr":true | filter:{"nm_cmt":name_filter}'>
+                    data-ng-repeat='b in blacklists | orderBy:"time":true | filter:{"nm_cmt":name_filter}'>
                     <td class="td1">
                         <input type="checkbox" ng-hide="bedit" ng-model="b.checked" ng-click="selectOne(b.addr)">
                     </td>
