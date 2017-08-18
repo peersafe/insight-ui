@@ -210,8 +210,6 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   };
 
   var _paginate = function(data) {
-    $scope.loading = false;
-
     pagesTotal = data.pagesTotal;
     pageNum += 1;
     data.txs.forEach(function(tx) {
@@ -230,6 +228,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
       }
      
     });
+    //$scope.loading = false;
   };
 
   var _TxByDate = function(data){
@@ -289,13 +288,15 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
     TransactionsByAddress.get({
       address: address,
       pageNum: pageNum
+
     }, function(data) {
       if($scope.stime!=undefined||$scope.etime!=undefined){
         _TxByDate(data);
       }else{
         _paginate(data);
       }
-
+    },function(err){
+      $scope.loading = false;
     });
   };
 
