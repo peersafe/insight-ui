@@ -17,7 +17,7 @@ angular.module('insight.blacklists')
     $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
 }])
     .controller('BlacklistsController',
-  function ($scope, $rootScope, $routeParams, $http, Service, BlacklistService, Address) {
+  function ($scope, $rootScope, $routeParams, $http, Service, BlacklistService) {
     // $scope.global = Global;
     // $scope.loading = false;
 
@@ -48,28 +48,11 @@ angular.module('insight.blacklists')
     $scope.doAdd = function () {
       if (!$scope.newblacklist || !$scope.newblacklist.addr) {
         $scope.newblacklist = {addr:'地址不能为空'}
-      // } else if ($scope.newblacklist.addr.length < 34
-      // || $scope.newblacklist.addr.length > 35) {
+      } else if ($scope.newblacklist.addr.length < 30
+        || $scope.newblacklist.addr.length > 40) {
+        $scope.newblacklist = {addr:'无效的地址'}
       } else {
-        // 验证地址的有效性
-        Address.get({
-            addrStr: $scope.newblacklist.addr
-          },
-          function(address) {
-            $scope.saveBlacklist($scope.newblacklist);
-          },
-          function(e) {
-            if (e.status === 400) {
-              // $rootScope.flashMessage = 'Invalid Address: ' + $routeParams.addrStr;
-              $scope.newblacklist.addr = '无效的地址'
-            } else if (e.status === 503) {
-              // $rootScope.flashMessage = 'Backend Error. ' + e.data;
-              $scope.newblacklist.addr = '地址未找到'
-            } else {
-              // $rootScope.flashMessage = 'Address Not Found';
-              $scope.newblacklist.addr = '地址未找到'
-            }
-          });
+        $scope.saveBlacklist($scope.newblacklist);
       }
     };
 

@@ -6,6 +6,7 @@ angular.module('insight.login').controller('loginController',
     // $scope.$emit('loginpage', true)
 
 
+    $rootScope.$broadcast('userLogout');
     //依赖注入的内容 作用域 本地 账户信息 弹出提示 状态值
     $scope.login = function () {
 
