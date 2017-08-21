@@ -10,7 +10,6 @@
 	<meta name="keywords" content="bitcoins, transactions, blocks, address, block chain, best block, mining difficulty, hash serialized">
 	<meta name="description" content="Bitcoin Insight. View detailed information on all bitcoin transactions and blocks.">
 	<link rel="shortcut icon" href="img/icons/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,400italic">
 	<link rel="stylesheet" href="css/main.min.css">
   <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
@@ -59,7 +58,7 @@
   </div>
 	<div id="wrap" data-ng-controller="HeaderController">
 		<div class="navbar navbar-default navbar-fixed-top" data-ng-include="'views/includes/header.html'" role='navigation' data-ng-show="isLogin"></div>
-		<section class="container" data-ng-view></section>
+		<section class="container" data-ng-style="containerStyle" data-ng-view></section>
 	</div>
 	<div id="footer" role="navigation">
     <div class="container"  style="width: 300px;font-size: 18px"data-ng-controller="FooterController">

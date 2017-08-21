@@ -30,11 +30,13 @@ angular.module('insight').config(function($routeProvider) {
     }).
     when('/login', {
       templateUrl: 'views/login.html',
-      title: 'Login'
+      title: 'Login',
+      public: true
     }).
     when('/logout', {
       templateUrl: 'views/login.html',
-      title: 'Login'
+      title: 'Login',
+      public: true
     }).
     when('/blocks', {
       templateUrl: 'views/block_list.html',
@@ -87,14 +89,19 @@ angular.module('insight')
   .run(function($rootScope, $route, $location, $routeParams, $anchorScroll, ngProgress, gettextCatalog, amMoment, CurrentUser) {
     gettextCatalog.currentLanguage = defaultLanguage;
     amMoment.changeLocale(defaultLanguage);
-    $rootScope.$on('$routeChangeStart', function() {
-      CurrentUser.get({},function (res) {
-        $rootScope.$broadcast('userLogin');
-      }, function (err) {
-        $rootScope.$broadcast('userLogout');
-        $location.path('/login');
-      });
-      ngProgress.start();
+    $rootScope.$on('$routeChangeStart', function(event, next, current) {
+      var isPublic = next ? next.public : current.public;
+      console.log('#######', isPublic);
+      if (!isPublic) {
+        CurrentUser.get({},function (res) {
+          ngProgress.start();
+          $rootScope.$broadcast('userLogin');
+        }, function (err) {
+          $rootScope.$broadcast('userLogout');
+          $location.path('/login');
+        });
+      }
+      
     });
 
     $rootScope.$on('$routeChangeSuccess', function() {

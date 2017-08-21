@@ -6,10 +6,20 @@ angular.module('insight.system').controller('HeaderController',
 
     $scope.$on('userLogin', function(d, data) {
       $rootScope.isLogin = true;
+
+      $scope.containerStyle = {
+        "padding" : "70px 15px 0",
+        "width" : "1170px"
+      }
     });
 
     $scope.$on('userLogout', function(d, data) {
       $rootScope.isLogin = false;
+
+      $scope.containerStyle = {
+        "padding" : "70px 0 0",
+        "width" : "100%"
+      }
     });
 
     $rootScope.currency = {

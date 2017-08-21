@@ -2,11 +2,12 @@
 
 angular.module('insight.login').controller('loginController',
   function ($scope, $rootScope, $routeParams, $location, Account) {
-    console.log('$routeParams=',$routeParams)
-    // $scope.$emit('loginpage', true)
-
-
     $rootScope.$broadcast('userLogout');
+
+    // force to hide header
+    $scope.hideHeader = function() {
+      $rootScope.$broadcast('userLogout');
+    };
     //依赖注入的内容 作用域 本地 账户信息 弹出提示 状态值
     $scope.login = function () {
 
@@ -37,7 +38,6 @@ angular.module('insight.login').controller('loginController',
             $scope.user.password = '';
           } else if (res.code === 0) {
             $rootScope.isLogin = true;
-            // $scope.$emit('isLogin', true);
             $location.path('/home');
           }
 

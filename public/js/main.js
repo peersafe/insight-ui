@@ -667,10 +667,20 @@ angular.module('insight.system').controller('HeaderController',
 
     $scope.$on('userLogin', function(d, data) {
       $rootScope.isLogin = true;
+
+      $scope.containerStyle = {
+        "padding" : "70px 15px 0",
+        "width" : "1170px"
+      }
     });
 
     $scope.$on('userLogout', function(d, data) {
       $rootScope.isLogin = false;
+
+      $scope.containerStyle = {
+        "padding" : "70px 0 0",
+        "width" : "100%"
+      }
     });
 
     $rootScope.currency = {
@@ -891,11 +901,12 @@ angular.module('insight.system').controller('IndexController',
 // Source: public/src/js/controllers/login.js
 angular.module('insight.login').controller('loginController',
   function ($scope, $rootScope, $routeParams, $location, Account) {
-    console.log('$routeParams=',$routeParams)
-    // $scope.$emit('loginpage', true)
-
-
     $rootScope.$broadcast('userLogout');
+
+    // force to hide header
+    $scope.hideHeader = function() {
+      $rootScope.$broadcast('userLogout');
+    };
     //依赖注入的内容 作用域 本地 账户信息 弹出提示 状态值
     $scope.login = function () {
 
@@ -926,7 +937,6 @@ angular.module('insight.login').controller('loginController',
             $scope.user.password = '';
           } else if (res.code === 0) {
             $rootScope.isLogin = true;
-            // $scope.$emit('isLogin', true);
             $location.path('/home');
           }
 
@@ -2280,11 +2290,13 @@ angular.module('insight').config(function($routeProvider) {
     }).
     when('/login', {
       templateUrl: 'views/login.html',
-      title: 'Login'
+      title: 'Login',
+      public: true
     }).
     when('/logout', {
       templateUrl: 'views/login.html',
-      title: 'Login'
+      title: 'Login',
+      public: true
     }).
     when('/blocks', {
       templateUrl: 'views/block_list.html',
@@ -2337,14 +2349,19 @@ angular.module('insight')
   .run(function($rootScope, $route, $location, $routeParams, $anchorScroll, ngProgress, gettextCatalog, amMoment, CurrentUser) {
     gettextCatalog.currentLanguage = defaultLanguage;
     amMoment.changeLocale(defaultLanguage);
-    $rootScope.$on('$routeChangeStart', function() {
-      CurrentUser.get({},function (res) {
-        $rootScope.$broadcast('userLogin');
-      }, function (err) {
-        $rootScope.$broadcast('userLogout');
-        $location.path('/login');
-      });
-      ngProgress.start();
+    $rootScope.$on('$routeChangeStart', function(event, next, current) {
+      var isPublic = next ? next.public : current.public;
+      console.log('#######', isPublic);
+      if (!isPublic) {
+        CurrentUser.get({},function (res) {
+          ngProgress.start();
+          $rootScope.$broadcast('userLogin');
+        }, function (err) {
+          $rootScope.$broadcast('userLogout');
+          $location.path('/login');
+        });
+      }
+      
     });
 
     $rootScope.$on('$routeChangeSuccess', function() {
