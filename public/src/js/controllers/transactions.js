@@ -15,6 +15,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   var pagesTotal = 1;
   var COIN = 100000000;
   var isHome=false;
+  var isSearchByDate = false;
  
    //Datepicker
   var _formatTimestamp = function (date) {
@@ -31,7 +32,10 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
     return yyyy + '/' + (mm[1] ? mm : '0' + mm[0]) + '/' + (dd[1] ? dd : '0' + dd[0]); //padding
   };
+
   $scope.dateval= _formatTimestamp(new Date())
+  $scope.stime=1230739200
+  $scope.etime=Math.round((new Date()).getTime()/1000);
 
   $scope.searchByAddr = function(){
       $scope.loading = true;
@@ -120,6 +124,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
  $scope.searchByDate = function(){
       $scope.loading = true;
       isHome=false;
+      isSearchByDate = true;
       //console.log($scope.stime ,$scope.etime);
       $scope.txs=[];
       $scope.exceltxs=[];
@@ -156,7 +161,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
       // non standard input
       if (items[i].scriptSig && !items[i].addr) {
         items[i].addr = 'Unparsed address [' + u++ + ']';
-        items[i].notAddr = true;
+        items[i].notAddr = true;$scope.stime
         notAddr = true;
       }
 
@@ -214,9 +219,9 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
     pagesTotal = data.pagesTotal;
     pageNum += 1;
     data.txs.forEach(function(tx) {
-      console.log('_paginate.pageNum=',pageNum)
+     /* console.log('_paginate.pageNum=',pageNum)
       console.log('_paginate.pagesTotal=',pagesTotal)
-
+*/
       if(isHome){
         _processTX(tx);
         $scope.txs.push(tx);
@@ -226,7 +231,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
           _processTX(tx);
           $scope.txs.push(tx);
           $scope.exceltxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),value:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认数"});
-          console.log(tx.time);
+          //console.log(tx.time);
           $scope.exceladdtxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),valueIn:tx.valueIn + " BTC",valueOut:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认数"});
         }
       }
@@ -250,9 +255,9 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
              }
           }
       })
-    console.log('pageNum=',pageNum)
+/*    console.log('pageNum=',pageNum)
     console.log('pagesTotal=',pagesTotal)
-    console.log('txCount=',txCount)
+    console.log('txCount=',txCount)*/
       if(txCount<10&&pageNum<Math.round(pagesTotal/10) && pageNum>0){
         _byAddress();
       }else{
@@ -297,7 +302,8 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
       pageNum: pageNum
 
     }, function(data) {
-      if($scope.stime!=undefined||$scope.etime!=undefined){
+      console.log($scope.stime,$scope.etime);
+      if(isSearchByDate){
         _TxByDate(data);
       }else{
         _paginate(data);
