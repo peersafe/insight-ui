@@ -1636,6 +1636,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   var curHeight = 0;
   $scope.iscurheight = true;
   $scope.initLoadTXByheight = function() {
+      $scope.loading = true;
       _initData();
   };
    //Load transactions for pagination
