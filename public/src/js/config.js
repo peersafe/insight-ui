@@ -91,7 +91,6 @@ angular.module('insight')
     amMoment.changeLocale(defaultLanguage);
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
       var isPublic = next ? next.public : current.public;
-      console.log('#######', isPublic);
       if (!isPublic) {
         CurrentUser.get({},function (res) {
           ngProgress.start();
