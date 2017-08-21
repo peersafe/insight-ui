@@ -271,7 +271,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
         if(JSON.stringify(tx.vin).indexOf(account) != -1){
           return true;
         }           
-      }else if(!txdirection_you&&txdirection_zuo){f
+      }else if(!txdirection_you&&txdirection_zuo){
          if(JSON.stringify(tx.vout).indexOf(account) != -1){
           return true;
         }    
@@ -475,7 +475,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 angular.module('insight.transactions').controller('SendRawTransactionController',
   function($scope, $http, Api) {
   $scope.transaction = '';
-  $scope.status = 'ready';  // ready|loading|sent|errorff
+  $scope.status = 'ready';  // ready|loading|sent|error
   $scope.txid = '';
   $scope.error = null;
 
