@@ -111,7 +111,7 @@ angular.module('insight.address').controller('AddressController',
           setTimeout(function () {
             $rootScope.flashMessage = null
           }, 2000);
-          $location.path(history.go(-1));
+         // $location.path(history.go(-1));
         });
     };
   });
