@@ -271,7 +271,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
         if(JSON.stringify(tx.vin).indexOf(account) != -1){
           return true;
         }           
-      }else if(!txdirection_you&&txdirection_zuo){
+      }else if(!txdirection_you&&txdirection_zuo){f
          if(JSON.stringify(tx.vout).indexOf(account) != -1){
           return true;
         }    
@@ -375,6 +375,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   $scope.loadTXByheight = function() {
       $scope.iscurheight = false;
       $scope.htxs= [];
+      $scope.excelhtxs=[];
       $scope.loading = true;
       pageNum = 0;
       console.log($scope.blockHeight,curHeight);
@@ -473,7 +474,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 angular.module('insight.transactions').controller('SendRawTransactionController',
   function($scope, $http, Api) {
   $scope.transaction = '';
-  $scope.status = 'ready';  // ready|loading|sent|error
+  $scope.status = 'ready';  // ready|loading|sent|errorff
   $scope.txid = '';
   $scope.error = null;
 
