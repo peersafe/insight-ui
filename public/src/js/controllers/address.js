@@ -4,6 +4,17 @@ angular.module('insight.address').controller('AddressController',
   function($scope, $rootScope, $routeParams, $location, Global, Address, getSocket) {
     $scope.global = Global;
 
+    //Datepicker
+    var _formatTimestamp = function (date) {
+      var yyyy = date.getFullYear().toString();
+      var mm = (date.getMonth() + 1).toString(); // getMonth() is zero-based
+      var dd  = date.getDate().toString();
+
+      return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]); //padding
+    };
+
+    $scope.formatstime = '2009-01-03';
+    $scope.formatetime = _formatTimestamp(new Date());
     var socket = getSocket($scope);
     var addrStr = $routeParams.addrStr;
 
