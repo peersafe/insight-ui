@@ -667,10 +667,20 @@ angular.module('insight.system').controller('HeaderController',
 
     $scope.$on('userLogin', function(d, data) {
       $rootScope.isLogin = true;
+
+      $scope.containerStyle = {
+        "padding" : "70px 15px 0",
+        "width" : "1170px"
+      }
     });
 
     $scope.$on('userLogout', function(d, data) {
       $rootScope.isLogin = false;
+
+      $scope.containerStyle = {
+        "padding" : "70px 0 0",
+        "width" : "100%"
+      }
     });
 
     $rootScope.currency = {
@@ -891,11 +901,12 @@ angular.module('insight.system').controller('IndexController',
 // Source: public/src/js/controllers/login.js
 angular.module('insight.login').controller('loginController',
   function ($scope, $rootScope, $routeParams, $location, Account) {
-    console.log('$routeParams=',$routeParams)
-    // $scope.$emit('loginpage', true)
-
-
     $rootScope.$broadcast('userLogout');
+
+    // force to hide header
+    $scope.hideHeader = function() {
+      $rootScope.$broadcast('userLogout');
+    };
     //依赖注入的内容 作用域 本地 账户信息 弹出提示 状态值
     $scope.login = function () {
 
@@ -926,7 +937,6 @@ angular.module('insight.login').controller('loginController',
             $scope.user.password = '';
           } else if (res.code === 0) {
             $rootScope.isLogin = true;
-            // $scope.$emit('isLogin', true);
             $location.path('/home');
           }
 
@@ -1272,6 +1282,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   var pagesTotal = 1;
   var COIN = 100000000;
   var isHome=false;
+  var isSearchByDate = false;
  
    //Datepicker
   var _formatTimestamp = function (date) {
@@ -1288,14 +1299,18 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
 
     return yyyy + '/' + (mm[1] ? mm : '0' + mm[0]) + '/' + (dd[1] ? dd : '0' + dd[0]); //padding
   };
+
   $scope.dateval= _formatTimestamp(new Date())
+  $scope.stime=1230739200
+  $scope.etime=Math.round((new Date()).getTime()/1000);
 
   $scope.searchByAddr = function(){
+      $scope.loading = true;
       isHome=true;
       $scope.txs=[];
       pageNum = 0;
       _blackAddr();
-     _byAddress();
+      _byAddress();
   }
 
   var _blackAddr = function(){
@@ -1376,6 +1391,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
  $scope.searchByDate = function(){
       $scope.loading = true;
       isHome=false;
+      isSearchByDate = true;
       //console.log($scope.stime ,$scope.etime);
       $scope.txs=[];
       $scope.exceltxs=[];
@@ -1412,7 +1428,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
       // non standard input
       if (items[i].scriptSig && !items[i].addr) {
         items[i].addr = 'Unparsed address [' + u++ + ']';
-        items[i].notAddr = true;
+        items[i].notAddr = true;$scope.stime
         notAddr = true;
       }
 
@@ -1470,9 +1486,9 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
     pagesTotal = data.pagesTotal;
     pageNum += 1;
     data.txs.forEach(function(tx) {
-      console.log('_paginate.pageNum=',pageNum)
+     /* console.log('_paginate.pageNum=',pageNum)
       console.log('_paginate.pagesTotal=',pagesTotal)
-
+*/
       if(isHome){
         _processTX(tx);
         $scope.txs.push(tx);
@@ -1482,7 +1498,7 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
           _processTX(tx);
           $scope.txs.push(tx);
           $scope.exceltxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),value:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认数"});
-          console.log(tx.time);
+          //console.log(tx.time);
           $scope.exceladdtxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),valueIn:tx.valueIn + " BTC",valueOut:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认数"});
         }
       }
@@ -1506,9 +1522,9 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
              }
           }
       })
-    console.log('pageNum=',pageNum)
+/*    console.log('pageNum=',pageNum)
     console.log('pagesTotal=',pagesTotal)
-    console.log('txCount=',txCount)
+    console.log('txCount=',txCount)*/
       if(txCount<10&&pageNum<Math.round(pagesTotal/10) && pageNum>0){
         _byAddress();
       }else{
@@ -1553,7 +1569,8 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
       pageNum: pageNum
 
     }, function(data) {
-      if($scope.stime!=undefined||$scope.etime!=undefined){
+      console.log($scope.stime,$scope.etime);
+      if(isSearchByDate){
         _TxByDate(data);
       }else{
         _paginate(data);
@@ -1619,12 +1636,14 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
   var curHeight = 0;
   $scope.iscurheight = true;
   $scope.initLoadTXByheight = function() {
+      $scope.loading = true;
       _initData();
   };
    //Load transactions for pagination
   $scope.loadTXByheight = function() {
       $scope.iscurheight = false;
       $scope.htxs= [];
+      $scope.excelhtxs=[];
       $scope.loading = true;
       pageNum = 0;
       console.log($scope.blockHeight,curHeight);
@@ -2279,11 +2298,13 @@ angular.module('insight').config(function($routeProvider) {
     }).
     when('/login', {
       templateUrl: 'views/login.html',
-      title: 'Login'
+      title: 'Login',
+      public: true
     }).
     when('/logout', {
       templateUrl: 'views/login.html',
-      title: 'Login'
+      title: 'Login',
+      public: true
     }).
     when('/blocks', {
       templateUrl: 'views/block_list.html',
@@ -2336,14 +2357,18 @@ angular.module('insight')
   .run(function($rootScope, $route, $location, $routeParams, $anchorScroll, ngProgress, gettextCatalog, amMoment, CurrentUser) {
     gettextCatalog.currentLanguage = defaultLanguage;
     amMoment.changeLocale(defaultLanguage);
-    $rootScope.$on('$routeChangeStart', function() {
-      CurrentUser.get({},function (res) {
-        $rootScope.$broadcast('userLogin');
-      }, function (err) {
-        $rootScope.$broadcast('userLogout');
-        $location.path('/login');
-      });
-      ngProgress.start();
+    $rootScope.$on('$routeChangeStart', function(event, next, current) {
+      var isPublic = next ? next.public : current.public;
+      if (!isPublic) {
+        CurrentUser.get({},function (res) {
+          ngProgress.start();
+          $rootScope.$broadcast('userLogin');
+        }, function (err) {
+          $rootScope.$broadcast('userLogout');
+          $location.path('/login');
+        });
+      }
+      
     });
 
     $rootScope.$on('$routeChangeSuccess', function() {

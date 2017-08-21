@@ -80,10 +80,6 @@
               </div>
             </td>
           </tr>
-          <tr data-ng-show="block.previousblockhash">
-            <td><strong translate>Previous Block</strong></td>
-            <td class="text-right"><a href="block/{{block.previousblockhash}}">{{block.height-1}}</a></td>
-          </tr>
           </tbody>
         </table>
       </div>
@@ -109,6 +105,10 @@
           <tr>
             <td> <strong translate>Nonce</strong></td>
             <td class="text-right text-muted">{{block.nonce}}</td>
+          </tr>
+          <tr data-ng-show="block.previousblockhash">
+            <td><strong translate>Previous Block</strong></td>
+            <td class="text-right"><a href="block/{{block.previousblockhash}}">{{block.height-1}}</a></td>
           </tr>
           <tr data-ng-show="block.nextblockhash">
             <td><strong translate>Next Block</strong></td>
