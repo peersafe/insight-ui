@@ -747,7 +747,7 @@ angular.module('insight.system').controller('HeaderController',
 
 // Source: public/src/js/controllers/history.js
 angular.module('insight.history').controller('HistoryController',
-  function ($scope, $rootScope, $routeParams, HistoryService) {
+  function ($scope, $rootScope, $routeParams, HistoryService,History) {
 
       var _formatTimestamp = function (date) {
         var yyyy = date.getUTCFullYear().toString();
@@ -778,6 +778,14 @@ angular.module('insight.history').controller('HistoryController',
     }
 
     $scope.params = $routeParams;
+
+    $scope.history = function () {
+           History.get({}, function (res) {
+              if (res.code === 0) {
+                  window.location.href="/history";
+              }
+            });
+        }
 
   });
 
@@ -1508,9 +1516,12 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
         if(_Txdirection(tx)){
           _processTX(tx);
           $scope.txs.push(tx);
-          $scope.exceltxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),value:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认数"});
+          var vinaddrs = _vinaddrs(tx.vin);
+          var voutaddrs = _voutaddrs(tx.vout);
+          $scope.exceltxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),vinadds:vinaddrs,voutadds:voutaddrs,value:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认"});
           //console.log(tx.time);
-          $scope.exceladdtxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),valueIn:tx.valueIn + " BTC",valueOut:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认数"});
+          $scope.exceladdtxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),vinadds:vinaddrs,voutadds:voutaddrs,valueOut:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认"});
+          //$scope.exceladdtxs.push({hash:"988cadbbad955a7285e27dbae8e50cc289a23045cc66a21db9de50f6ca917f7a",time:"20170204",vinadds:"2Mx3TZycg4XL5sQFfERBgNmg9Ma7uxowK9y\nmg2ecTMFakp4xSca1x1pzPfd1aCc1WVY6Q",voutadds:"mz28XtZ4pNTmNEU6Nc4qUkLzqrX2SjfRbH\nmjAFPh7F15o3BrAXbqZgUtUj6zjnKMWMhu\n2NBMEXscbMskQPji9j2CoEvU8tnZdpLZmSy",valueIn:"125 BTC",valueOut:"124 BTC",confirmations:"12 个确认数"});
         }
       }
      
@@ -1528,8 +1539,10 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
              if(_Txdirection(tx)){
                 _processTX(tx);
                 $scope.txs.push(tx);
-                $scope.exceltxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),value:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认"});
-                $scope.exceladdtxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),valueIn:tx.valueIn + " BTC",valueOut:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认"});
+                var vinaddrs = _vinaddrs(tx.vin);
+                var voutaddrs = _voutaddrs(tx.vout);
+                $scope.exceltxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),vinadds:vinaddrs,voutadds:voutaddrs,value:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认"});
+                $scope.exceladdtxs.push({hash:tx.txid,time:_formatTime(new Date(tx.time * 1000)),vinadds:vinaddrs,voutadds:voutaddrs,valueOut:tx.valueOut + " BTC",confirmations:tx.confirmations + "个确认"});
              }
           }
       })
@@ -1542,6 +1555,31 @@ function($scope, $rootScope, $routeParams, $location, Global, Transaction, Trans
          $scope.loading = false;
       }
   }
+
+  var _vinaddrs = function(data){
+      var address = "";
+      data.forEach(function(vin) {
+          if(vin.addr){
+            address += "\n"+vin.addr;
+          }else{
+            address += "\n没有输入(新生产的币)"
+          }
+      })
+      return address;
+  };
+  var _voutaddrs = function(data){
+     var address = "";
+     data.forEach(function(vout) {
+          vout.scriptPubKey.addresses.forEach(function(addr) {
+            if(address.indexOf(addr) == -1){
+              address += "\n"+addr;;
+            }
+          });
+      })
+      return address;
+  };
+
+
   var _Txdirection = function(tx){
       //console.log("txdirection_you "+txdirection_you,"txdirection_zuo "+txdirection_zuo);
       var account= $routeParams.addrStr;
@@ -2022,6 +2060,10 @@ angular.module('insight.history')
       function ($resource, Service) {
         // console.log("Service:", Service.apiPrefix)
         return $resource(Service.apiPrefix + '/history/histories');
+      })
+    .factory('History',
+      function ($resource, Service) {
+        return $resource(Service.apiPrefix + '/history');
       });
 
 // Source: public/src/js/services/login.js

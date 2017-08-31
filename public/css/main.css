@@ -1068,6 +1068,7 @@ table a{color: #30bfa1;}
 .rrll img {
        cursor: pointer;
 }
+.hisbut{margin-left: 100px;font-size: 16px;height: 40px;background: #30bfa1;color: #fff;border-radius: 5px;cursor: pointer;border: 1px solid transparent;}
 .rangeA{width: 150px; height: 30px; border: 1px solid #30bfa1;padding-left: 10px;}
 .bmbmlt button{width: 150px; height: 35px; border: none; color: #fff; background: #2fa4d7;border-radius: 3px; margin-left: 58px; margin-top: 20px; cursor: pointer;}
 .bmbmlt button:hover{background: #31b1e9;}

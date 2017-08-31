@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('insight.history').controller('HistoryController',
-  function ($scope, $rootScope, $routeParams, HistoryService) {
+  function ($scope, $rootScope, $routeParams, HistoryService,History) {
 
       var _formatTimestamp = function (date) {
         var yyyy = date.getUTCFullYear().toString();
@@ -32,5 +32,13 @@ angular.module('insight.history').controller('HistoryController',
     }
 
     $scope.params = $routeParams;
+
+    $scope.history = function () {
+           History.get({}, function (res) {
+              if (res.code === 0) {
+                  window.location.href="/history";
+              }
+            });
+        }
 
   });

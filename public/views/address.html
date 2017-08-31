@@ -125,7 +125,7 @@
                           <img class="dateimg" src="images/search.png" alt="" data-ng-click="searchByDate()" height="35"> -->
                     </div>
                     <span class="daochu" ng-csv="exceladdtxs" add-bom="true"
-                          csv-header="['交易哈希', '交易产生时间','转入金额','转出金额', '交易状态']"
+                          csv-header="['交易哈希', '交易产生时间','发送地址','接受地址','交易金额', '交易状态']"
                           filename="{{address.addrStr}}_交易信息表_{{formatstime}}_{{formatetime}}.csv">导出</span></h2>
                 <div data-ng-include src="'views/transaction/list.html'" when-scrolled="loadMore()"></div>
             </div>
