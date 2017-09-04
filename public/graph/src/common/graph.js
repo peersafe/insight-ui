@@ -293,7 +293,7 @@ networkGraph = function (nameService) {
                         balance: 0,
                         currency: '',
                         limit: 10,
-                        limit_peer: 10
+                        limit_peer: 0
                     });
                 }
               })
@@ -304,7 +304,7 @@ networkGraph = function (nameService) {
                             account: d.addr,
                             balance: 0,
                             currency: '',
-                            limit: 10,
+                            limit: 0,
                             limit_peer: 10
                         });
                     }
